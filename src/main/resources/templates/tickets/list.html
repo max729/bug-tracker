@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{tickets.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{tickets.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/ticketss/add}" th:text="#{tickets.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${ticketss.empty}" th:text="#{tickets.list.empty}" />
+            <div th:if="${!ticketss.empty}" class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th th:text="#{tickets.id.label}" scope="col" />
+                            <th th:text="#{tickets.name.label}" scope="col" />
+                            <th th:text="#{tickets.status.label}" scope="col" />
+                            <th th:text="#{tickets.description.label}" scope="col" />
+                            <th th:text="#{tickets.priority.label}" scope="col" />
+                            <th th:text="#{tickets.typ.label}" scope="col" />
+                            <th th:text="#{tickets.projektLink.label}" scope="col" />
+                            <th th:text="#{tickets.author.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tickets : ${ticketss}">
+                            <td th:text="${tickets.id}" />
+                            <td th:text="${tickets.name}" />
+                            <td th:text="${tickets.status}" />
+                            <td th:text="${tickets.description}" />
+                            <td th:text="${tickets.priority}" />
+                            <td th:text="${tickets.typ}" />
+                            <td th:text="${tickets.projektLink}" />
+                            <td th:text="${tickets.author}" />
+                            <td>
+                                <form th:action="@{/ticketss/delete/{id}(id=${tickets.id})}" th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm float-end">
+                                    <a th:href="@{/ticketss/edit/{id}(id=${tickets.id})}" th:text="#{tickets.list.edit}" class="btn btn-sm btn-info" />
+                                    <button th:text="#{tickets.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

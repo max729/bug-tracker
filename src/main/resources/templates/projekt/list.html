@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{projekt.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{projekt.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/projekts/add}" th:text="#{projekt.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${projekts.empty}" th:text="#{projekt.list.empty}" />
+            <div th:if="${!projekts.empty}" class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th th:text="#{projekt.id.label}" scope="col" />
+                            <th th:text="#{projekt.projektName.label}" scope="col" />
+                            <th th:text="#{projekt.projektDescription.label}" scope="col" />
+                            <th th:text="#{projekt.allUsers.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="projekt : ${projekts}">
+                            <td th:text="${projekt.id}" />
+                            <td th:text="${projekt.projektName}" />
+                            <td th:text="${projekt.projektDescription}" />
+                            <td th:text="${projekt.allUsers}" />
+                            <td>
+                                <form th:action="@{/projekts/delete/{id}(id=${projekt.id})}" th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm float-end">
+                                    <a th:href="@{/projekts/edit/{id}(id=${projekt.id})}" th:text="#{projekt.list.edit}" class="btn btn-sm btn-info" />
+                                    <button th:text="#{projekt.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
