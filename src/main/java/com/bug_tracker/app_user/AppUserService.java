@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -14,9 +15,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AppUserService(final AppUserRepository appUserRepository) {
+    public AppUserService(final AppUserRepository appUserRepository,final PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<AppUserDTO> findAll() {
@@ -62,7 +65,7 @@ public class AppUserService {
     private AppUser mapToEntity(final AppUserDTO appUserDTO, final AppUser appUser) {
         appUser.setFirstName(appUserDTO.getFirstName());
         appUser.setLastName(appUserDTO.getLastName());
-        appUser.setPassword(appUserDTO.getPassword());
+        appUser.setPassword(passwordEncoder.encode(appUserDTO.getPassword()));
         appUser.setEmail(appUserDTO.getEmail());
         appUser.setUserRole(appUserDTO.getUserRole());
         return appUser;

@@ -36,7 +36,7 @@ public class AppUserResource {
         return ResponseEntity.ok(appUserService.get(id));
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createAppUser(@RequestBody @Valid final AppUserDTO appUserDTO) {
         return new ResponseEntity<>(appUserService.create(appUserDTO), HttpStatus.CREATED);
@@ -46,7 +46,7 @@ public class AppUserResource {
     public ResponseEntity<Void> updateAppUser(@PathVariable final Long id,
             @RequestBody @Valid final AppUserDTO appUserDTO) {
         appUserService.update(id, appUserDTO);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().build(); 
     }
 
     @DeleteMapping("/{id}")

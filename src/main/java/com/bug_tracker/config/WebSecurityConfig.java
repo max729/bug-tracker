@@ -23,6 +23,7 @@ public class WebSecurityConfig {
                 .httpBasic();
         return http.build();
     }
+    
 }
 
 
