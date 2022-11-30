@@ -4,6 +4,10 @@ import com.bug_tracker.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,9 +21,18 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AppUserService(final AppUserRepository appUserRepository,final PasswordEncoder passwordEncoder) {
+    private final String accessTokenSecret;
+    private final String refreshTokenSecret;
+
+    public AppUserService(final AppUserRepository appUserRepository,
+                          final PasswordEncoder passwordEncoder,
+                          @Value("${application.security.access-token-secret") String accessTokenSecret,
+                          @Value("${application.security.refresh-token-secret") String refreshTokenSecret
+                          ) {
         this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
+        this.accessTokenSecret = accessTokenSecret;
+        this.refreshTokenSecret = refreshTokenSecret;
     }
 
     public List<AppUserDTO> findAll() {
@@ -56,7 +69,6 @@ public class AppUserService {
         appUserDTO.setId(appUser.getId());
         appUserDTO.setFirstName(appUser.getFirstName());
         appUserDTO.setLastName(appUser.getLastName());
-        appUserDTO.setPassword(appUser.getPassword());
         appUserDTO.setEmail(appUser.getEmail());
         appUserDTO.setUserRole(appUser.getUserRole());
         return appUserDTO;
@@ -91,4 +103,39 @@ public class AppUserService {
         return null;
     }
 
+    public Login login(final String email,final String password) {
+
+        var appUser = appUserRepository.findByEmail(email)
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"invalid credentials"));
+
+        if(!passwordEncoder.matches(password,appUser.getPassword()))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid password");
+
+
+        return Login.of(
+                appUser.getId(),
+                accessTokenSecret,
+                refreshTokenSecret
+        );
+    }
+
+    //Logger logger = LoggerFactory.getLogger(AppUserService.class);
+    public AppUserDTO getUserFromToken(final String token) {
+
+        var appUser = appUserRepository.findById(Token.from(token,accessTokenSecret))
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cant find User_token"));
+
+        return mapToDTO(appUser,new AppUserDTO());
+    }
+
+    public Login refreshAccess(final String refreshToken) {
+
+        var appUserId = Token.from(refreshToken,refreshTokenSecret);
+
+        return Login.of(
+                appUserId,
+                accessTokenSecret,
+                Token.of(refreshToken)
+        );
+    }
 }
