@@ -5,28 +5,28 @@ import lombok.Getter;
 
 public class Login {
     @Getter
-    private final Token accessToken;
+    private final Jwt accessJwt;
     @Getter
-    private final Token refreshToken;
+    private final Jwt refreshJwt;
 
     private static final Long ACCESS_TOKEN_VALIDITY = 1L;
     private static final Long REFRESH_TOKEN_VALIDITY = 2880L;
 
-    private Login(Token accessToken, Token refreshToken) {
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
+    private Login(Jwt accessJwt, Jwt refreshJwt) {
+        this.accessJwt = accessJwt;
+        this.refreshJwt = refreshJwt;
     }
 
     public static Login of(final Long userId,final String accessSecret,final String refreshSecret){
         return new Login(
-                Token.of(userId, ACCESS_TOKEN_VALIDITY, accessSecret),
-                Token.of(userId, REFRESH_TOKEN_VALIDITY, refreshSecret)
+                Jwt.of(userId, ACCESS_TOKEN_VALIDITY, accessSecret),
+                Jwt.of(userId, REFRESH_TOKEN_VALIDITY, refreshSecret)
         );
     }
 
-    public static Login of(final Long userId,final String accessSecret,final Token refreshSecret){
+    public static Login of(final Long userId,final String accessSecret,final Jwt refreshSecret){
         return new Login(
-                Token.of(userId, ACCESS_TOKEN_VALIDITY, accessSecret),
+                Jwt.of(userId, ACCESS_TOKEN_VALIDITY, accessSecret),
                 refreshSecret
         );
     }

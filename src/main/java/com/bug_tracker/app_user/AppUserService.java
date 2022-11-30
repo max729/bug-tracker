@@ -5,8 +5,6 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -109,7 +107,7 @@ public class AppUserService {
                 .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"invalid credentials"));
 
         if(!passwordEncoder.matches(password,appUser.getPassword()))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid password");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "invalid credentials");
 
 
         return Login.of(
@@ -122,7 +120,7 @@ public class AppUserService {
     //Logger logger = LoggerFactory.getLogger(AppUserService.class);
     public AppUserDTO getUserFromToken(final String token) {
 
-        var appUser = appUserRepository.findById(Token.from(token,accessTokenSecret))
+        var appUser = appUserRepository.findById(Jwt.from(token,accessTokenSecret))
                 .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cant find User_token"));
 
         return mapToDTO(appUser,new AppUserDTO());
@@ -130,12 +128,12 @@ public class AppUserService {
 
     public Login refreshAccess(final String refreshToken) {
 
-        var appUserId = Token.from(refreshToken,refreshTokenSecret);
+        var appUserId = Jwt.from(refreshToken,refreshTokenSecret);
 
         return Login.of(
                 appUserId,
                 accessTokenSecret,
-                Token.of(refreshToken)
+                Jwt.of(refreshToken)
         );
     }
 }

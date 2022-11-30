@@ -46,27 +46,30 @@ public class AppUserResource {
 
         var login = appUserService.login(loginRequest.email(),loginRequest.password());
 
-        Cookie cookie = new Cookie("refresh_token", login.getRefreshToken().getToken());
+        Cookie cookie = new Cookie("refresh_token", login.getRefreshJwt().getToken());
         cookie.setMaxAge(3600);
         cookie.setHttpOnly(true);
         cookie.setPath("/api");
         response.addCookie(cookie);
 
-        return ResponseEntity.ok(new LoginResponse(login.getAccessToken().getToken()));
+        return ResponseEntity.ok(new LoginResponse(login.getAccessJwt().getToken()));
     }
 
     @PostMapping("/refresh")
-    @ApiResponse(responseCode = "200")
     public ResponseEntity<LoginResponse> loginAppUser(@CookieValue("refresh_token") String refreshToken) {
         var login = appUserService.refreshAccess(refreshToken);
 
-        return ResponseEntity.ok(new LoginResponse(login.getAccessToken().getToken()));
+        return ResponseEntity.ok(new LoginResponse(login.getAccessJwt().getToken()));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@CookieValue("refresh_token") String refreshToken,HttpServletResponse response){
-        Cookie cookie ;
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("refresh_token",null);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok("success");
     }
 
 
