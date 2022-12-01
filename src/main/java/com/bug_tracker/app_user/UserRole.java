@@ -5,6 +5,7 @@ public enum UserRole {
 
     ADMIN,
     DEV,
-    MANAGER
+    MANAGER,
+    GUEST
 
 }

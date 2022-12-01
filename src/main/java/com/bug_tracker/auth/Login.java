@@ -1,4 +1,4 @@
-package com.bug_tracker.app_user;
+package com.bug_tracker.auth;
 
 import lombok.Getter;
 

@@ -18,10 +18,17 @@ spring:
             non_contextual_creation: true
         id:
           new_generator_mappings: true
+  mail:
+    host: 0.0.0.0
+    port: 1025
+
 springdoc:
   pathsToMatch: /api/**
 
 application:
   security:
-    access-token-secret: eyJhbGciOiJIUzI1NiJ9.ew0KICAic3ViIjogIjEyMzQ1Njc4OTAiLA0KICAibmFtZSI6ICJBbmlzaCBOYXRoIiwNCiAgImlhdCI6IDE1MTYyMzkwMjINCn0.pMM127MXwRHJrlyoIbfCB70K-_Ze-Z1VTcRm_Y_Cz4k
-    refresh-token-secret: eyJhbGciOiJIUzI1NiJ9.ew0KICAic3ViIjogIjEyMzQ1Njc4OTAiLA0KICAibmFtZSI6ICJBbmlzaCBOYXRoIiwNCiAgImlhdCI6IDE1MTYyMzkwMjINCn0.pMM127MXwRHJrlyoIbfCB70K-_Ze-Z1VTcRm_Y_Cz4k
+    access-token-secret: cfbcfbcfbcfbcbfcbcfbcfgzdsdvsdsdfdfhdf
+    refresh-token-secret: sdgsdgsdgdsgdbvxcbcdfhbdhbnfdcfrhbdcfb
+    forgot-token-secret: adawdafgsgbddthtthfthfthfdthfthfthfjnv
+  frontend:
+    default-url: http://localhost:4200

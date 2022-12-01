@@ -19,6 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry
                 .addInterceptor(authorizationInterceptor)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/appUsers/login","/api/appUsers/refresh");
+                .excludePathPatterns("/api/appUsers/login","/api/appUsers/refresh",
+                        "/api/appUsers/forgot","/api/appUsers/reset");
     }
 }

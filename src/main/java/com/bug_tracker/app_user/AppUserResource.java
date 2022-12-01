@@ -2,6 +2,7 @@ package com.bug_tracker.app_user;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -73,11 +74,14 @@ public class AppUserResource {
     }
 
 
+    record ForgotRequest(String email) {}
+    @PostMapping("/forgot")
+    public ResponseEntity<String> forgot(@RequestBody ForgotRequest forgotRequest, HttpServletRequest request) {
+        var originUrl = request.getHeader("Origin");
+        appUserService.forget(forgotRequest.email, originUrl);
 
-    /*@GetMapping("/user")
-    public ResponseEntity<AppUserDTO> getAppUser() {
-        return ResponseEntity.ok(appUserService.get(id));
-    }*/
+        return ResponseEntity.ok("success" );
+    }
 
 
     @PutMapping("/{id}")

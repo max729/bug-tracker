@@ -1,4 +1,4 @@
-package com.bug_tracker.app_user;
+package com.bug_tracker.auth;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

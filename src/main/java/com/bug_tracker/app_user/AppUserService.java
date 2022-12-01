@@ -1,5 +1,8 @@
 package com.bug_tracker.app_user;
 
+import com.bug_tracker.auth.Jwt;
+import com.bug_tracker.auth.Login;
+import com.bug_tracker.email.MailServices;
 import com.bug_tracker.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -18,19 +21,24 @@ public class AppUserService {
 
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
-
     private final String accessTokenSecret;
     private final String refreshTokenSecret;
+    private final String forgotTokenSecret;
+
+    private final MailServices mailServices;
 
     public AppUserService(final AppUserRepository appUserRepository,
                           final PasswordEncoder passwordEncoder,
-                          @Value("${application.security.access-token-secret") String accessTokenSecret,
-                          @Value("${application.security.refresh-token-secret") String refreshTokenSecret
-                          ) {
+                          @Value("${application.security.access-token-secret}") String accessTokenSecret,
+                          @Value("${application.security.refresh-token-secret}") String refreshTokenSecret,
+                          @Value("${application.security.forgot-token-secret}")String forgotTokenSecret,
+                          MailServices mailServices) {
         this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.accessTokenSecret = accessTokenSecret;
         this.refreshTokenSecret = refreshTokenSecret;
+        this.forgotTokenSecret = forgotTokenSecret;
+        this.mailServices = mailServices;
     }
 
     public List<AppUserDTO> findAll() {
@@ -101,7 +109,7 @@ public class AppUserService {
         return null;
     }
 
-    public Login login(final String email,final String password) {
+    public Login login(final String email, final String password) {
 
         var appUser = appUserRepository.findByEmail(email)
                 .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"invalid credentials"));
@@ -135,5 +143,16 @@ public class AppUserService {
                 accessTokenSecret,
                 Jwt.of(refreshToken)
         );
+    }
+
+    public void forget(String email, String originUrl) {
+        var appUser = appUserRepository.findByEmail(email)
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cant find User by Mail") );
+
+        var token = Jwt.of(appUser.getId(),30L,forgotTokenSecret);
+
+        mailServices.sendForgotMassage(email,token.getToken(),originUrl);
+        //appUserRepository.save(appUser);
+
     }
 }
