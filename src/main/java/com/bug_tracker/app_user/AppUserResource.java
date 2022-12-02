@@ -83,6 +83,15 @@ public class AppUserResource {
         return ResponseEntity.ok("success" );
     }
 
+    record ResetRequest(String token, String newPassword) {}
+    @PostMapping("/reset")
+    public ResponseEntity<String> forgot(@RequestBody ResetRequest resetRequest) {
+
+        appUserService.reset(resetRequest.token, resetRequest.newPassword );
+
+        return ResponseEntity.ok("success" );
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateAppUser(@PathVariable final Long id,

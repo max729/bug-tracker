@@ -126,12 +126,12 @@ public class AppUserService {
     }
 
     //Logger logger = LoggerFactory.getLogger(AppUserService.class);
-    public AppUserDTO getUserFromToken(final String token) {
+    public AppUser getUserFromToken(final String token) {
 
         var appUser = appUserRepository.findById(Jwt.from(token,accessTokenSecret))
-                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cant find User_token"));
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cant find User by token"));
 
-        return mapToDTO(appUser,new AppUserDTO());
+        return appUser;
     }
 
     public Login refreshAccess(final String refreshToken) {
@@ -153,6 +153,16 @@ public class AppUserService {
 
         mailServices.sendForgotMassage(email,token.getToken(),originUrl);
         //appUserRepository.save(appUser);
+
+    }
+
+    public void reset(String token, String newPassword) {
+
+        var appUser = getUserFromToken(token);
+
+        appUser.setPassword(newPassword);
+
+        appUserRepository.save(appUser);
 
     }
 }
