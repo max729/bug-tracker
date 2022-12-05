@@ -89,14 +89,5 @@ public class TicketsService {
         return tickets;
     }
 
-    @Transactional
-    public String getReferencedWarning(final Long id) {
-        final Tickets tickets = ticketsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (!tickets.getTicketComments().isEmpty()) {
-            return WebUtils.getMessage("tickets.comment.oneToMany.referenced", tickets.getTicketComments().iterator().next().getId());
-        }
-        return null;
-    }
 
 }

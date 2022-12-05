@@ -82,14 +82,5 @@ public class ProjektService {
         return projektRepository.existsByProjektNameIgnoreCase(projektName);
     }
 
-    @Transactional
-    public String getReferencedWarning(final Long id) {
-        final Projekt projekt = projektRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (!projekt.getProjektLinkTicketss().isEmpty()) {
-            return WebUtils.getMessage("projekt.tickets.oneToMany.referenced", projekt.getProjektLinkTicketss().iterator().next().getId());
-        }
-        return null;
-    }
 
 }

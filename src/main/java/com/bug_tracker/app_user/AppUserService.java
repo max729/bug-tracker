@@ -93,21 +93,6 @@ public class AppUserService {
         return appUserRepository.existsByEmailIgnoreCase(email);
     }
 
-    @Transactional
-    public String getReferencedWarning(final Long id) {
-        final AppUser appUser = appUserRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (!appUser.getUserLinkComments().isEmpty()) {
-            return WebUtils.getMessage("appUser.comment.oneToMany.referenced", appUser.getUserLinkComments().iterator().next().getId());
-        } else if (!appUser.getAuthorTicketss().isEmpty()) {
-            return WebUtils.getMessage("appUser.tickets.manyToOne.referenced", appUser.getAuthorTicketss().iterator().next().getId());
-        } else if (!appUser.getAssignedTicketss().isEmpty()) {
-            return WebUtils.getMessage("appUser.tickets.manyToOne.referenced", appUser.getAssignedTicketss().iterator().next().getId());
-        } else if (!appUser.getAllUserProjekts().isEmpty()) {
-            return WebUtils.getMessage("appUser.projekt.manyToMany.referenced", appUser.getAllUserProjekts().iterator().next().getId());
-        }
-        return null;
-    }
 
     public Login login(final String email, final String password) {
 
