@@ -23,7 +23,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         String authorizationHeader = request.getHeader("Authorization");
 
         if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer "))
-            throw new ResponseStatusException(HttpStatus.PROXY_AUTHENTICATION_REQUIRED,"no login");
+            throw new ResponseStatusException(HttpStatus.PROXY_AUTHENTICATION_REQUIRED,"not login");
 
         request.setAttribute("user", appUserService.getUserFromToken(authorizationHeader.substring(7)));
 

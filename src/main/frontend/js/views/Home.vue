@@ -1,5 +1,5 @@
 <template >
-    <div>
+    <div class="container mt-5 text-center">
         <h1>Hallo</h1>
     </div>
 </template>

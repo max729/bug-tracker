@@ -57,6 +57,8 @@ public class AppUserService {
     public Long create(final AppUserDTO appUserDTO) {
         final AppUser appUser = new AppUser();
         mapToEntity(appUserDTO, appUser);
+
+        appUser.setUserRole(UserRole.DEV);
         return appUserRepository.save(appUser).getId();
     }
 

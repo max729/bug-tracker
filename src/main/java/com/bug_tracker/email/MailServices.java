@@ -26,7 +26,7 @@ public class MailServices {
         massage.setText(String.
                 format("click <a href=\"%s/reset/%s\">here</a> to reset your password", url,token));
 
-        javaMailSender.send(massage);
+        //javaMailSender.send(massage);
 
     }
 }

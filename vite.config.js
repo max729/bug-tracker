@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 
 
-
 // https://vitejs.dev/config/
 export default defineConfig({
   root: path.resolve(__dirname, 'src/main/frontend'),

@@ -28,7 +28,6 @@ public class AppUserDTO {
     @Size(max = 255)
     private String email;
 
-    @NotNull
     private UserRole userRole;
 
 }

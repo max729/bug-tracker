@@ -18,7 +18,7 @@ export default {
 
         <div class="text-end">
           <router-link to="/login" class="btn btn-outline-light me-2">Login</router-link>
-          <button type="button" class="btn btn-warning">Sign-up</button>
+          <router-link to="/register" type="button" class="btn btn-warning">Register</router-link >
         </div>
       </div>
     </div>
