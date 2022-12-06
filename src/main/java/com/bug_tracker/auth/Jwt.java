@@ -44,7 +44,7 @@ public class Jwt {
                     setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))
                     .build().parseClaimsJws(token);
         } catch (JwtException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage() + " -T");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage() + " -T");
         }
 
         return jws.getBody().get("user_id", Long.class);

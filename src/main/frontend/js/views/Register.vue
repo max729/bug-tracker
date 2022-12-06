@@ -55,7 +55,7 @@ export default {
 
       try{
         
-        await axios.post( "http://localhost:8080/api/appUsers/register" , data,{
+        await axios.post( "/appUsers/register" , data,{
           'Content-Type': 'application/json',
         });
 

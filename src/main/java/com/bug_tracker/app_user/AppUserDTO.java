@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 public class AppUserDTO {
 
-    private Long id;
 
     @NotNull
     @Size(max = 255)
@@ -19,10 +18,6 @@ public class AppUserDTO {
     @NotNull
     @Size(max = 255)
     private String lastName;
-
-    @NotNull
-    @Size(max = 255)
-    private String password;
 
     @NotNull
     @Size(max = 255)

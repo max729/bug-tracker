@@ -3,8 +3,6 @@ package com.bug_tracker.app_user;
 import com.bug_tracker.auth.Jwt;
 import com.bug_tracker.auth.Login;
 import com.bug_tracker.email.MailServices;
-import com.bug_tracker.util.WebUtils;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,8 +71,8 @@ public class AppUserService {
         appUserRepository.deleteById(id);
     }
 
-    private AppUserDTO mapToDTO(final AppUser appUser, final AppUserDTO appUserDTO) {
-        appUserDTO.setId(appUser.getId());
+    public AppUserDTO mapToDTO(final AppUser appUser, final AppUserDTO appUserDTO) {
+        //appUserDTO.setId(appUser.getId());
         appUserDTO.setFirstName(appUser.getFirstName());
         appUserDTO.setLastName(appUser.getLastName());
         appUserDTO.setEmail(appUser.getEmail());
@@ -85,7 +83,6 @@ public class AppUserService {
     private AppUser mapToEntity(final AppUserDTO appUserDTO, final AppUser appUser) {
         appUser.setFirstName(appUserDTO.getFirstName());
         appUser.setLastName(appUserDTO.getLastName());
-        appUser.setPassword(passwordEncoder.encode(appUserDTO.getPassword()));
         appUser.setEmail(appUserDTO.getEmail());
         appUser.setUserRole(appUserDTO.getUserRole());
         return appUser;
@@ -145,9 +142,9 @@ public class AppUserService {
 
     public void reset(String token, String newPassword) {
 
-        var appUser = getUserFromToken(token);
+        var appUser =  getUserFromToken(token);
 
-        appUser.setPassword(newPassword);
+        appUser.setPassword( passwordEncoder.encode(newPassword));
 
         appUserRepository.save(appUser);
 

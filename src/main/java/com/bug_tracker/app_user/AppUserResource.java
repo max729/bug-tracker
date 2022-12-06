@@ -32,6 +32,18 @@ public class AppUserResource {
         return ResponseEntity.ok(appUserService.get(id));
     }
 
+
+
+    @GetMapping("/token")
+    public ResponseEntity<AppUserDTO> getAppUserByToken(HttpServletRequest request) {
+        
+        var appUser = (AppUser) request.getAttribute("appUser");
+        
+        return ResponseEntity.ok(appUserService.mapToDTO(appUser, new AppUserDTO()));
+    }
+
+
+
     @PostMapping("/register")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createAppUser(@RequestBody @Valid final AppUserDTO appUserDTO) {
@@ -57,6 +69,7 @@ public class AppUserResource {
     }
 
     @PostMapping("/refresh")
+    @ApiResponse(responseCode = "200")
     public ResponseEntity<LoginResponse> loginAppUser(@CookieValue("refresh_token") String refreshToken) {
         var login = appUserService.refreshAccess(refreshToken);
 

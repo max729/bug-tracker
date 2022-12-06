@@ -14,7 +14,12 @@
 
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    
+    
+
   </form>
+  
+  <button v-on:click="guestLogin" class="w-100 btn btn-lg btn-primary my-4" >As Guest</button>
 </main>
 </template>
 
@@ -36,13 +41,13 @@ export default {
     const submit = async () =>{
 
       try{
-        const response = await axios.post( "http://localhost:8080/api/appUsers/login" , data, 
+        const response = await axios.post( "/appUsers/login" , data, 
           {
             'Content-Type': 'application/json',
             withCredentials: true
         });
 
-        axios.defaults.headers.common['Authorization'] = "Bearer ${response.data.token}";
+        axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
 
         await router.push("/");
 
@@ -53,9 +58,32 @@ export default {
 
     }
 
+    const guestLogin = async () => {
+
+      try {
+        const response = await axios.post("/appUsers/login", { email: "aadwwd@daw.de", password: "12345" },
+          {
+            'Content-Type': 'application/json',
+            withCredentials: true
+          });
+
+        axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+
+        await router.push("/");
+
+      } catch (e) {
+        console.log(e)
+      }
+
+
+    }
+
+
+
     return {
       data,
-      submit
+      submit,
+      guestLogin
     }
   }
 
