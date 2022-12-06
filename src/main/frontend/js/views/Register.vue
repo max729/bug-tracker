@@ -1,6 +1,6 @@
 <template>
-<main @submit.prevent="submit" class="form-signin w-100 m-auto">
-  <form class="d-grid gap-3">
+<main class="form-signin w-100 m-auto">
+  <form @submit.prevent="submit" class="d-grid gap-3">
      <h1 class="h3 mb-3 fw-normal">Please Register</h1>
 
     <div class="form-floating">

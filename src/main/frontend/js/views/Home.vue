@@ -1,7 +1,6 @@
 <template >
     <div class="container mt-5 text-center">
         <h1>{{ auth ? message :'you are not logged in' }}</h1>
-        <h2>{{ auth}}</h2>
     </div>
 </template>
 <script>
