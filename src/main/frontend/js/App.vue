@@ -1,10 +1,12 @@
 <script >
 import Nav from "./components/Nav.vue";
+import Sidebar from "./components/Sidebar.vue";
 
 export default {
   components: {
-    Nav
-  }
+    Nav,
+    Sidebar
+}
 }
 
 
@@ -13,7 +15,22 @@ export default {
 <template>
   <Nav />
 
-  <router-view></router-view>
+  <div class="container-fluid">
+    <div class="row">
+<Sidebar />
+    <div class="col">
+      <router-view></router-view>
+
+    </div>
+
+    </div>
+    
+    
+  </div>
+  
+  
+
+  
 
 </template>
 

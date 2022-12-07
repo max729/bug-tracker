@@ -27,71 +27,63 @@
 </main>
 </template>
 
-<script>
+<script setup>
 import { reactive } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-export default {
-  name:   "Login",
-  setup() {
-    const data = reactive({
-      email: "",
-      password: ""
-    });
-
-    const router = useRouter();
-  
-    const submit = async () =>{
-
-      try{
-        const response = await axios.post( "/appUsers/login" , data, 
-          {
-            'Content-Type': 'application/json',
-            withCredentials: true
-        });
-
-        axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
-
-        await router.push("/");
-
-      } catch (e) {
-        console.log(e)
-      }
 
 
-    }
+const data = reactive({
+  email: "",
+  password: ""
+});
 
-    const guestLogin = async () => {
+const router = useRouter();
 
-      try {
-        const response = await axios.post("/appUsers/login", { email: "aadwwd@daw.de", password: "12345" },
-          {
-            'Content-Type': 'application/json',
-            withCredentials: true
-          });
+const submit = async () => {
 
-        axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+  try {
+    const response = await axios.post("/appUsers/login", data,
+      {
+        'Content-Type': 'application/json',
+        withCredentials: true
+      });
 
-        await router.push("/");
+    axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
 
-      } catch (e) {
-        console.log(e)
-      }
+    await router.push("/");
 
-
-    }
-
-
-
-    return {
-      data,
-      submit,
-      guestLogin
-    }
+  } catch (e) {
+    console.log("Not Found")
   }
 
+
 }
+
+const guestLogin = async () => {
+
+  try {
+    const response = await axios.post("/appUsers/login", { email: "aadwwd@daw.de", password: "12345" },
+      {
+        'Content-Type': 'application/json',
+        withCredentials: true
+      });
+
+    axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+
+    await router.push("/");
+
+  } catch (e) {
+    console.log(e)
+  }
+
+
+}
+
+
+
+
 
 </script>
 

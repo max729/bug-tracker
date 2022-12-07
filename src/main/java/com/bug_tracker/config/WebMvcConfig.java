@@ -24,6 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         ,"/api/appUsers/register"
                         ,"/api/appUsers/refresh"
                         ,"/api/appUsers/forgot"
-                        ,"/api/appUsers/reset");
+                        ,"/api/appUsers/reset"
+                        ,"/api/appUsers/logout");
     }
 }

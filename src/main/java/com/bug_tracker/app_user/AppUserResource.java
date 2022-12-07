@@ -63,6 +63,7 @@ public class AppUserResource {
         cookie.setMaxAge(3600);
         cookie.setHttpOnly(true);
         cookie.setPath("/api");
+        cookie.setAttribute("SameSite", "Lax");
         response.addCookie(cookie);
 
         return ResponseEntity.ok(new LoginResponse(login.getAccessJwt().getToken()));
@@ -81,6 +82,8 @@ public class AppUserResource {
         Cookie cookie = new Cookie("refresh_token",null);
         cookie.setMaxAge(0);
         cookie.setHttpOnly(true);
+        cookie.setPath("/api");
+        cookie.setAttribute("SameSite", "Lax");
         response.addCookie(cookie);
 
         return ResponseEntity.ok("success");
