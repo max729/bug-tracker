@@ -5,12 +5,14 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Forgot from "../views/Forgot.vue";
 import Reset from "../views/Reset.vue";
+import Profile from "../views/Profile.vue";
+import Tickets from "../views/Tickets.vue";
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Login
     },  {
         path: '/login',
         name: 'Login',
@@ -30,6 +32,16 @@ const routes = [
         path: '/reset/:token',
         name: 'Reset',
         component: Reset
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile
+    },
+    {
+        path: '/tickets',
+        name: 'Tickets',
+        component: Tickets
     }
 ]
 

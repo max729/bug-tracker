@@ -1,6 +1,6 @@
 <template>
 <main  class="form-signin w-100 m-auto">
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit(true)">
      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div class="form-floating">
@@ -19,7 +19,7 @@
     <div class="my-3">
       <router-link to="/forgot">Forgot password?</router-link>
     </div>
-    <a onclick="event.preventDefault()" v-on:click="guestLogin" href="#" >As Guest</a>
+    <a onclick="event.preventDefault()" v-on:click="submit(false)" href="#" >As Guest</a>
 
   </form>
   
@@ -31,52 +31,40 @@
 import { reactive } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 
+const store = useStore();
+const router = useRouter();
 
 const data = reactive({
   email: "",
   password: ""
 });
 
-const router = useRouter();
+const submit = async (asUser) => {
 
-const submit = async () => {
+  const guestUser = { email: "aadwwd@daw.de", password: "12345" }
 
-  try {
-    const response = await axios.post("/appUsers/login", data,
-      {
-        'Content-Type': 'application/json',
-        withCredentials: true
-      });
-
-    axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
-
-    await router.push("/");
-
-  } catch (e) {
-    console.log("Not Found")
-  }
+  const response = await axios.post("/appUsers/login", asUser ? data : guestUser,
+    {
+      'Content-Type': 'application/json',
+      withCredentials: true
+    }
+  ).catch(console.log("cant get user"));
 
 
-}
+  axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
 
-const guestLogin = async () => {
+  const { data } = await axios.get("/appUsers/token");
 
-  try {
-    const response = await axios.post("/appUsers/login", { email: "aadwwd@daw.de", password: "12345" },
-      {
-        'Content-Type': 'application/json',
-        withCredentials: true
-      });
+  console.log(data)
 
-    axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+  await store.dispatch('setUser', data);
 
-    await router.push("/");
+  await store.dispatch('setAuth', true);
 
-  } catch (e) {
-    console.log(e)
-  }
+  await router.push("/profile");
 
 
 }

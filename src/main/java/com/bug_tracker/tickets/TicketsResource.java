@@ -1,6 +1,8 @@
 package com.bug_tracker.tickets;
 
+import com.bug_tracker.app_user.AppUser;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/ticketss", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TicketsResource {
 
     private final TicketsService ticketsService;
@@ -27,7 +29,9 @@ public class TicketsResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<TicketsDTO>> getAllTicketss() {
+    public ResponseEntity<List<TicketsDTO>> getAllTicketss(HttpServletRequest request) {
+        var appUser = (AppUser) request.getAttribute("appUser");
+
         return ResponseEntity.ok(ticketsService.findAll());
     }
 

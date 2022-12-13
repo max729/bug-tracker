@@ -1,5 +1,7 @@
 package com.bug_tracker.tickets;
 
+import java.time.OffsetDateTime;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -35,5 +37,7 @@ public class TicketsDTO {
     private Long author;
 
     private Long assigned;
+
+    private OffsetDateTime lastUpdated;
 
 }

@@ -29,6 +29,8 @@ public class TicketsService {
     }
 
     public List<TicketsDTO> findAll() {
+        //
+        //.findTicketsByUserProjekts(id)
         return ticketsRepository.findAll(Sort.by("id"))
                 .stream()
                 .map(tickets -> mapToDTO(tickets, new TicketsDTO()))
@@ -68,6 +70,7 @@ public class TicketsService {
         ticketsDTO.setProjektLink(tickets.getProjektLink() == null ? null : tickets.getProjektLink().getId());
         ticketsDTO.setAuthor(tickets.getAuthor() == null ? null : tickets.getAuthor().getId());
         ticketsDTO.setAssigned(tickets.getAssigned() == null ? null : tickets.getAssigned().getId());
+        ticketsDTO.setLastUpdated(tickets.getLastUpdated());
         return ticketsDTO;
     }
 
