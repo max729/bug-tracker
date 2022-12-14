@@ -58,13 +58,11 @@ const submit = async (asUser) => {
 
   const { data } = await axios.get("/appUsers/token");
 
-  console.log(data)
-
   await store.dispatch('setUser', data);
 
   await store.dispatch('setAuth', true);
 
-  await router.push("/profile");
+  await router.push("/tickets");
 
 
 }

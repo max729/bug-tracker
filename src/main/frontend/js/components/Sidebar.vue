@@ -1,64 +1,42 @@
 <template>
 
 
-  <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+  <div class="col-12 col-md-3 col-xl-2 px-md-2 px-0 bg-dark d-flex sticky-top">
     <div
-      class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
-      <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-5">B<span class="d-none d-sm-inline">rand</span></span>
+      class="d-flex flex-md-column flex-row flex-grow-1 align-items-center align-items-md-start px-3 pt-2 text-white">
+      <a href="/" class="d-flex align-items-center pb-md-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-5">B<span class="d-none d-md-inline">ug</span>-T<span class="d-none d-md-inline">racker</span></span>
       </a>
-      <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
+      <ul class="nav nav-pills flex-md-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-md-auto mb-0 justify-content-center align-items-center align-items-md-start" id="menu">
         <li class="nav-item">
-          <a href="#" class="nav-link px-sm-0 px-2">
-            <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Home</span>
-          </a>
+          <router-link to="/Home" class="nav-link px-md-0 px-2">
+            <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-md-inline">Home</span>
+          </router-link>
         </li>
         <li>
-          <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-sm-0 px-2">
-            <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+          <router-link to="/tickets" class="nav-link px-md-0 px-2">
+            <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-md-inline">Tickets</span> 
+          </router-link>
         </li>
         <li>
-          <a href="#" class="nav-link px-sm-0 px-2">
-            <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="nav-link dropdown-toggle px-sm-0 px-2" id="dropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Bootstrap</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdown">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#" class="nav-link px-sm-0 px-2">
-            <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>
-        </li>
-        <li>
-          <a href="#" class="nav-link px-sm-0 px-2">
-            <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+          <router-link to="/projekts" class="nav-link px-md-0 px-2">
+            <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-md-inline">Projects</span>
+          </router-link>
         </li>
       </ul>
-      <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+      <div class="dropdown py-md-4 mt-md-auto ms-auto ms-md-0 flex-shrink-1">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
-          <span class="d-none d-sm-inline mx-1">Joe</span>
+          <img src="../../assets/vite.svg"  width="28" height="28" class="rounded-circle">
+          <span class="d-none d-md-inline mx-1">{{user.firstName}}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><router-link to="/profile" class="dropdown-item">Profile</router-link></li>
+          <li><router-link to="/profile" class="dropdown-item">Settings</router-link></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><router-link to="/login" @click="logout" class="dropdown-item" >Sign out</router-link></li>
         </ul>
       </div>
     </div>
@@ -66,6 +44,37 @@
 
 </template>
 
+
+<script setup>
+
+import axios from 'axios';
+import {  computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();    
+let auth = computed(()=> store.state.auth );
+let user = computed(() => store.state.user);
+
+const logout = async () => {
+      axios.post('/appUsers/logout',{},{withCredentials:true});
+
+      axios.defaults.headers.common['Authorization'] = '';
+
+      await store.dispatch('setAuth',false);
+
+}
+    
+</script>
+
+
+
+
+
 <style scoped>
+@media (min-width: 768px) {
+    .h-md-100 {
+        height: 100%;
+    }
+}
 
 </style>

@@ -74,18 +74,31 @@ const store = useStore();
 let auth = computed(() => store.state.auth);
 let user = computed(() => store.state.user);
 
+let apiData = ref(null);
+
+onMounted(async () => {
+
+try {
+    const response = await axios.get("/tickets");
+
+    apiData.value = response.data;
+
+    //console.log(apiData);
+
+} catch (e) {
+    console.log(e);
+    //await store.dispatch('setAuth', false);
+}
+});
+
+ /*= [
+  { name: 'Ab', typ: "BUG" , status: "OPEN" , priority: "LOW" },
+  { name: 'B', typ: "BUG" , status: "OPEN" , priority: "LOW" }
+]*/
 
 
 const searchQuery = ref('')
 const gridColumns = ['name', 'typ', 'status', 'priority']
-
-
-const apiData = [
-  { name: 'Ab', typ: "BUG" , status: "OPEN" , priority: "LOW" },
-  { name: 'B', typ: "BUG" , status: "OPEN" , priority: "LOW" }
-]
-
-
 
 
 const sortKey = ref('')
@@ -94,7 +107,8 @@ const sortOrders = ref(
 )
 
 const filteredData = computed(() => {
-  let data = apiData
+  
+  let data = apiData.value !== null ? apiData.value : [];
   if (searchQuery) {
     let searchQuery1 = searchQuery.value.toLowerCase()
     data = data.filter((row) => {
@@ -113,6 +127,7 @@ const filteredData = computed(() => {
       return (a === b ? 0 : a > b ? 1 : -1) * order
     })
   }
+  //console.log(data)
   return data
 })
 

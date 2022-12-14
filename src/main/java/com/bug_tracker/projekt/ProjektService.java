@@ -60,6 +60,7 @@ public class ProjektService {
         projektDTO.setId(projekt.getId());
         projektDTO.setProjektName(projekt.getProjektName());
         projektDTO.setProjektDescription(projekt.getProjektDescription());
+        projektDTO.setDateCreated(projekt.getDateCreated());
         projektDTO.setAllUsers(projekt.getAllUserAppUsers() == null ? null : projekt.getAllUserAppUsers().stream()
                 .map(appUser -> appUser.getId())
                 .collect(Collectors.toList()));
