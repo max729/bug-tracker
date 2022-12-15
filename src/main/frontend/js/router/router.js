@@ -8,6 +8,7 @@ import Reset from "../views/Reset.vue";
 import Profile from "../views/Profile.vue";
 import Tickets from "../views/Tickets.vue";
 import Projects from "../views/Projects.vue";
+import Ticket from "../views/Ticket.vue"
 
 const routes = [
     {
@@ -43,6 +44,11 @@ const routes = [
         path: '/tickets',
         name: 'Tickets',
         component: Tickets
+    },
+    {
+        path: '/ticket/:id',
+        name: 'Ticket',
+        component: Ticket
     },
     {
         path: '/projects',

@@ -45,7 +45,7 @@
                 <span class="p-1 bg-success text-white bg-opacity-75 rounded-1">{{entry.priority}}</span>
             </td>
             <td class="align-middle">
-              <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">Details</a>
+              <router-link :to="{path: '/ticket/' + entry.id }" class="text-secondary font-weight-bold text-xs" >Details</router-link>
             </td>
         </tr>
        
@@ -83,18 +83,13 @@ try {
 
     apiData.value = response.data;
 
-    //console.log(apiData);
-
 } catch (e) {
     console.log(e);
     //await store.dispatch('setAuth', false);
 }
 });
 
- /*= [
-  { name: 'Ab', typ: "BUG" , status: "OPEN" , priority: "LOW" },
-  { name: 'B', typ: "BUG" , status: "OPEN" , priority: "LOW" }
-]*/
+
 
 
 const searchQuery = ref('')
@@ -108,7 +103,7 @@ const sortOrders = ref(
 
 const filteredData = computed(() => {
   
-  let data = apiData.value !== null ? apiData.value : [];
+  let data = apiData.value  ? apiData.value : [];
   if (searchQuery) {
     let searchQuery1 = searchQuery.value.toLowerCase()
     data = data.filter((row) => {
@@ -119,6 +114,7 @@ const filteredData = computed(() => {
   }
 
   const key = sortKey.value
+  // TODO implement sorting for pRIORITY LOW < MID
   if (key) {
     const order = sortOrders.value[key]
     data = data.slice().sort((a, b) => {

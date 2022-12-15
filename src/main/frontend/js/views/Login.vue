@@ -51,7 +51,7 @@ const submit = async (asUser) => {
       'Content-Type': 'application/json',
       withCredentials: true
     }
-  ).catch(console.log("cant get user"));
+  )
 
 
   axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;

@@ -1,14 +1,8 @@
 import axios from "axios";
 
-
 axios.defaults.baseURL = "http://localhost:8080/api";
 
-
-
-
-
 let refresh = false;
-
 
 axios.interceptors.response.use( resp => resp, async error => {
 
@@ -21,6 +15,9 @@ axios.interceptors.response.use( resp => resp, async error => {
         
         if( response.status === 200 ){
             axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+
+            error.config.headers.set('Authorization' , "Bearer " + response.data.token ) 
+            //console.log(error.config.headers)
 
             return axios(error.config);
         }

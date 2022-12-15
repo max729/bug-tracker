@@ -34,7 +34,7 @@
                     </div>
                 </td>
                 <td class="align-middle text-center text-sm ">
-                    <span class="text-secondary text-xs font-weight-bold">{{entry.dateCreated}}</span>
+                    <span class="text-secondary text-xs font-weight-bold">{{  entry.dateCreated.substring(0,10) }}</span>
                 </td>
                 <td class="align-middle">
                   <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">Details</a>
@@ -74,19 +74,14 @@
         const response = await axios.get("/projekts");
     
         apiData.value = response.data;
-    
-        //console.log(apiData);
-    
+   
     } catch (e) {
         console.log(e);
         //await store.dispatch('setAuth', false);
     }
     });
     
-     /*= [
-      { name: 'Ab', typ: "BUG" , status: "OPEN" , priority: "LOW" },
-      { name: 'B', typ: "BUG" , status: "OPEN" , priority: "LOW" }
-    ]*/
+
     
     
     const searchQuery = ref('')
@@ -100,7 +95,8 @@
     
     const filteredData = computed(() => {
       
-      let data = apiData.value !== null ? apiData.value : [];
+      //console.log(apiData.value);
+      let data =  apiData.value  ? apiData.value : [];
       if (searchQuery) {
         let searchQuery1 = searchQuery.value.toLowerCase()
         data = data.filter((row) => {

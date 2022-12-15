@@ -4,7 +4,7 @@
   <div class="col-12 col-md-3 col-xl-2 px-md-2 px-0 bg-dark d-flex sticky-top">
     <div
       class="d-flex flex-md-column flex-row flex-grow-1 align-items-center align-items-md-start px-3 pt-2 text-white">
-      <a href="/" class="d-flex align-items-center pb-md-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <a href="#" class="d-flex align-items-center pb-md-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <span class="fs-5">B<span class="d-none d-md-inline">ug</span>-T<span class="d-none d-md-inline">racker</span></span>
       </a>
       <ul class="nav nav-pills flex-md-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-md-auto mb-0 justify-content-center align-items-center align-items-md-start" id="menu">
@@ -19,7 +19,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/projekts" class="nav-link px-md-0 px-2">
+          <router-link to="/projects" class="nav-link px-md-0 px-2">
             <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-md-inline">Projects</span>
           </router-link>
         </li>
