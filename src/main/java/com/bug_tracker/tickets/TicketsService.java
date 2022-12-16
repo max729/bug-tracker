@@ -68,7 +68,13 @@ public class TicketsService {
         ticketsDTO.setPriority(tickets.getPriority());
         ticketsDTO.setTyp(tickets.getTyp());
         ticketsDTO.setProjektLink(tickets.getProjektLink() == null ? null : tickets.getProjektLink().getId());
+        
+
         ticketsDTO.setAuthor(tickets.getAuthor() == null ? null : tickets.getAuthor().getId());
+        /*appUserRepository.findById( 
+            tickets.getAuthor().getId() )
+        .orElse(null).getFirstName()  
+        );*/
         ticketsDTO.setAssigned(tickets.getAssigned() == null ? null : tickets.getAssigned().getId());
         ticketsDTO.setLastUpdated(tickets.getLastUpdated());
         return ticketsDTO;

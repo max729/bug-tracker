@@ -34,7 +34,7 @@ public class AppUserResource {
 
 
 
-    @GetMapping("/token")
+    @GetMapping("/fromToken")
     public ResponseEntity<AppUserDTO> getAppUserByToken(HttpServletRequest request) {
         
         var appUser = (AppUser) request.getAttribute("appUser");
@@ -54,6 +54,7 @@ public class AppUserResource {
     record LoginRequest(String email, String password) {}
     record LoginResponse(String token) {}
     @PostMapping("/login")
+    @CrossOrigin(maxAge = 3600)
     @ApiResponse(responseCode = "200")
     public ResponseEntity<LoginResponse> loginAppUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 

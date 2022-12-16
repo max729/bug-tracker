@@ -42,7 +42,9 @@
                 <span class="text-secondary text-xs font-weight-bold">{{entry.status}}</span>
             </td>
             <td class="align-middle text-center text-sm">
-                <span class="p-1 bg-success text-white bg-opacity-75 rounded-1">{{entry.priority}}</span>
+                <span class="p-1 text-white bg-opacity-75 rounded-1" 
+                :class="{ 'bg-success' : entry.priority == 'LOW', 'bg-warning' : entry.priority == 'MID', 'bg-danger' : entry.priority == 'HEIGH'  }">
+                {{entry.priority}}</span>
             </td>
             <td class="align-middle">
               <router-link :to="{path: '/ticket/' + entry.id }" class="text-secondary font-weight-bold text-xs" >Details</router-link>

@@ -1,21 +1,38 @@
 <template>
 
-<div v-if="apiData.value" class="card shadow my-3" >
+<div v-if="apiData"  class="card shadow my-3" >
   <div class="card-body">
     <h5 class="card-title">Ticket Details</h5>
-    <li v-for="(value, key) in apiData.value">
-      {{ key }}: {{ value }}
+    <li  >
+      Name : {{ apiData.name  }}
     </li>
-
+    <li  >
+      Status : {{ apiData.status  }}
+    </li>
+    <li  >
+      Description : {{ apiData.description  }}
+    </li>
+    <li  >
+      Priority : {{ apiData.priority  }}
+    </li>
+    <li  >
+      Typ : {{ apiData.typ  }}
+    </li>
+    <li  >
+      Author : {{ apiData.author  }}
+    </li>
+    <li  >
+      Assigned : {{ apiData.assigned  }}
+    </li>
+    <li  >
+      LastUpdated : {{ apiData.lastUpdated }}
+    </li>
   </div>
   <div class="card-body">
     <button type="button" class="btn btn-primary">Edit</button>
   </div>
 
 
-</div>
-<div v-else>
-  <p class="text-align-center my-3">Cant fetch Ticket Data</p>
 </div>
 
 
@@ -36,11 +53,11 @@ let apiData = ref(null);
 const route = useRoute(); 
 const id = route.params.id;
 
+
 onMounted(async () => {
 
 try {
-    const response = await axios.get("/tickets/" + id );
-    
+    const response = await axios.get("/tickets/" + id );  
     apiData.value = response.data;
 
 } catch (e) {

@@ -37,7 +37,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{  entry.dateCreated.substring(0,10) }}</span>
                 </td>
                 <td class="align-middle">
-                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">Details</a>
+                  <router-link :to="{path: '/projekt/' + entry.id }" class="text-secondary font-weight-bold text-xs" >Details</router-link>
                 </td>
             </tr>
            

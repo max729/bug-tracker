@@ -7,8 +7,10 @@ import Forgot from "../views/Forgot.vue";
 import Reset from "../views/Reset.vue";
 import Profile from "../views/Profile.vue";
 import Tickets from "../views/Tickets.vue";
-import Projects from "../views/Projects.vue";
 import Ticket from "../views/Ticket.vue"
+import Projects from "../views/Projects.vue";
+import Project from "../views/Project.vue"
+
 
 const routes = [
     {
@@ -54,6 +56,11 @@ const routes = [
         path: '/projects',
         name: 'Projects',
         component: Projects
+    },
+    {
+        path: '/project/:id',
+        name: 'Project',
+        component: Project
     }
 ]
 

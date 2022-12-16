@@ -56,7 +56,7 @@ const submit = async (asUser) => {
 
   axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
 
-  const { data } = await axios.get("/appUsers/token");
+  const { data } = await axios.get("/appUsers/fromToken");
 
   await store.dispatch('setUser', data);
 
