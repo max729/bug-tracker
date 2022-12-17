@@ -27,4 +27,6 @@ public class ProjektDTO {
 
     private List<Long> allUsers;
 
+    private List<String> allUsersNames;
+
 }

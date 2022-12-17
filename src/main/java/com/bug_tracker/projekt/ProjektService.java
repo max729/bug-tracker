@@ -63,6 +63,10 @@ public class ProjektService {
         projektDTO.setAllUsers(projekt.getAllUserAppUsers() == null ? null : projekt.getAllUserAppUsers().stream()
                 .map(appUser -> appUser.getId())
                 .collect(Collectors.toList()));
+        projektDTO.setAllUsersNames(projekt.getAllUserAppUsers() == null ? null : projekt.getAllUserAppUsers().stream()
+                .map(appUser -> appUser.getFirstName())
+                .collect(Collectors.toList()));
+
         return projektDTO;
     }
 
