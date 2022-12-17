@@ -4,8 +4,6 @@ import com.bug_tracker.app_user.AppUser;
 import com.bug_tracker.app_user.AppUserRepository;
 import com.bug_tracker.projekt.Projekt;
 import com.bug_tracker.projekt.ProjektRepository;
-import com.bug_tracker.util.WebUtils;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;

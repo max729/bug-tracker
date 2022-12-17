@@ -3,6 +3,12 @@ package com.bug_tracker.app_user;
 import com.bug_tracker.auth.Jwt;
 import com.bug_tracker.auth.Login;
 import com.bug_tracker.email.MailServices;
+import com.bug_tracker.tickets.Priority;
+import com.bug_tracker.tickets.TicketStatus;
+import com.bug_tracker.tickets.Tickets;
+import com.bug_tracker.tickets.TicketsRepository;
+
+import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +24,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
+    private final TicketsRepository ticketsRepository;
+
+
     private final PasswordEncoder passwordEncoder;
     private final String accessTokenSecret;
     private final String refreshTokenSecret;
@@ -26,12 +35,14 @@ public class AppUserService {
     private final MailServices mailServices;
 
     public AppUserService(final AppUserRepository appUserRepository,
+                        TicketsRepository ticketsRepository,
                           final PasswordEncoder passwordEncoder,
                           @Value("${application.security.access-token-secret}") String accessTokenSecret,
                           @Value("${application.security.refresh-token-secret}") String refreshTokenSecret,
                           @Value("${application.security.forgot-token-secret}")String forgotTokenSecret,
                           MailServices mailServices) {
         this.appUserRepository = appUserRepository;
+        this.ticketsRepository = ticketsRepository;
         this.passwordEncoder = passwordEncoder;
         this.accessTokenSecret = accessTokenSecret;
         this.refreshTokenSecret = refreshTokenSecret;
@@ -148,5 +159,36 @@ public class AppUserService {
 
         appUserRepository.save(appUser);
 
+    }
+
+    public AppUserStatsDTO AppUserStats(Long id) {
+
+        EnumMap<Priority, Integer> totalTicktetsByPriority = new EnumMap<Priority, Integer>(Priority.class);
+        EnumMap<TicketStatus, Integer> totalTicktetsByStatus = new EnumMap<TicketStatus, Integer>(TicketStatus.class);
+        
+        for (Priority ele : Priority.values()) { 
+            totalTicktetsByPriority.put(ele,0);
+        }
+        for (TicketStatus ele : TicketStatus.values()) { 
+            totalTicktetsByStatus.put(ele,0);
+        }
+
+        List<Tickets> tickets =  ticketsRepository.findAll();//findTicketsByUserProjekts(id);
+
+        int totalTickets = 0;
+
+        for (Tickets ticket: tickets) {
+            totalTickets++;
+            totalTicktetsByStatus.put(ticket.getStatus(), totalTicktetsByStatus.get(ticket.getStatus())+1);
+            totalTicktetsByPriority.put(ticket.getPriority(), totalTicktetsByPriority.get(ticket.getPriority())+1);
+        }
+
+        AppUserStatsDTO stats = new AppUserStatsDTO();
+
+        stats.setTotalTicktets(totalTickets);
+        stats.setTotalTicktetsByPriority(totalTicktetsByPriority);
+        stats.setTotalTicktetsByStatus(totalTicktetsByStatus);
+
+        return stats;
     }
 }

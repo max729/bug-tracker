@@ -2,7 +2,6 @@ package com.bug_tracker.projekt;
 
 import com.bug_tracker.app_user.AppUser;
 import com.bug_tracker.app_user.AppUserRepository;
-import com.bug_tracker.util.WebUtils;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;

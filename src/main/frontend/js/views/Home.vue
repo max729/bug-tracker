@@ -1,7 +1,11 @@
 <template >
     <div class="container mt-5 text-center">
-        <h1>{{ auth ? message :'you are not logged in' }}</h1>
+        <h1>{{ "Hi" + user.firstName + ", " user.lastName + "you are logged in as" + user.userRole  }}</h1>
     </div>
+
+
+
+
 </template>
 
 <script setup>
@@ -14,6 +18,7 @@ const message = ref('you are not logged in');
 
 const store = useStore();
 let auth = computed(() => store.state.auth);
+let user = computed(() => store.state.user);
 
 onMounted(async () => {
 

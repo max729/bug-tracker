@@ -42,6 +42,15 @@ public class AppUserResource {
         return ResponseEntity.ok(appUserService.mapToDTO(appUser, new AppUserDTO()));
     }
 
+  
+    @GetMapping("/stats")
+    public ResponseEntity<AppUserStatsDTO> getAppUserStats(HttpServletRequest request) {
+        
+        var appUser = (AppUser) request.getAttribute("appUser");
+        
+        return ResponseEntity.ok(appUserService.AppUserStats(  appUser.getId()  ));
+    }
+
 
 
     @PostMapping("/register")
