@@ -62,7 +62,7 @@ const submit = async (asUser) => {
 
   await store.dispatch('setAuth', true);
 
-  await router.push("/tickets");
+  await router.push("/ticket");
 
 
 }

@@ -17,7 +17,7 @@ public class CommentDTO {
     private String comment;
 
     @NotNull
-    private Long userLink;
+    private String userLink;
 
     private Long ticket;
 

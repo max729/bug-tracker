@@ -37,7 +37,7 @@
                     <span class="text-secondary text-xs font-weight-bold">{{  entry.dateCreated.substring(0,10) }}</span>
                 </td>
                 <td class="align-middle">
-                  <router-link :to="{path: '/projekt/' + entry.id }" class="text-secondary font-weight-bold text-xs" >Details</router-link>
+                  <router-link :to="{path: '/project/' + entry.id }" class="text-secondary font-weight-bold text-xs" >Details</router-link>
                 </td>
             </tr>
            

@@ -1,6 +1,6 @@
 <template >
     <div class="container mt-5 text-center">
-        <h1>{{ "Hi" + user.firstName + ", " user.lastName + "you are logged in as" + user.userRole  }}</h1>
+        <h1>{{ "Hi" + user.firstName + ", " + user.lastName + "you are logged in as" + user.userRole  }}</h1>
     </div>
 
 

@@ -1,7 +1,7 @@
-package com.bug_tracker.projekt;
+package com.bug_tracker.project;
 
 import com.bug_tracker.app_user.AppUser;
-import com.bug_tracker.tickets.Tickets;
+import com.bug_tracker.ticket.Ticket;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +26,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Projekt {
+public class Project {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -34,18 +34,18 @@ public class Projekt {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String projektName;
+    private String projectName;
 
     @Column(nullable = false)
-    private String projektDescription;
+    private String projectDescription;
 
-    @OneToMany(mappedBy = "projektLink")
-    private Set<Tickets> projektLinkTicketss;
+    @OneToMany(mappedBy = "projectLink")
+    private Set<Ticket> projectLinkTickets;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "all_user",
-            joinColumns = @JoinColumn(name = "projekt_id"),
+            joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "app_user_id")
     )
     private Set<AppUser> allUserAppUsers;

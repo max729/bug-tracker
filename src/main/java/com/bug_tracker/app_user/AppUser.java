@@ -1,15 +1,13 @@
 package com.bug_tracker.app_user;
 
 import com.bug_tracker.comment.Comment;
-import com.bug_tracker.projekt.Projekt;
-import com.bug_tracker.tickets.Tickets;
+import com.bug_tracker.project.Project;
+import com.bug_tracker.ticket.Ticket;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -28,10 +26,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 public class AppUser {
 
+    //@Id
+    //@Column(nullable = false, updatable = false)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(nullable = false, updatable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(nullable = false, updatable = false, length = 24)
+    private String id;
 
     @Column(nullable = false)
     private String firstName;
@@ -53,13 +53,13 @@ public class AppUser {
     private Set<Comment> userLinkComments;
 
     @OneToMany(mappedBy = "author")
-    private Set<Tickets> authorTicketss;
+    private Set<Ticket> authorTickets;
 
     @OneToMany(mappedBy = "assigned")
-    private Set<Tickets> assignedTicketss;
+    private Set<Ticket> assignedTickets;
 
     @ManyToMany(mappedBy = "allUserAppUsers")
-    private Set<Projekt> allUserProjekts;
+    private Set<Project> allUserProjects;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

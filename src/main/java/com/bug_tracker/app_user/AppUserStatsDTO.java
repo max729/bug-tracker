@@ -3,8 +3,8 @@ package com.bug_tracker.app_user;
 import java.util.EnumMap;
 
 
-import com.bug_tracker.tickets.Priority;
-import com.bug_tracker.tickets.TicketStatus;
+import com.bug_tracker.ticket.Priority;
+import com.bug_tracker.ticket.TicketStatus;
 
 import lombok.Getter;
 import lombok.Setter;

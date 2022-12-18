@@ -1,7 +1,7 @@
 package com.bug_tracker.comment;
 
 import com.bug_tracker.app_user.AppUser;
-import com.bug_tracker.tickets.Tickets;
+import com.bug_tracker.ticket.Ticket;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -39,7 +39,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id")
-    private Tickets ticket;
+    private Ticket ticket;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

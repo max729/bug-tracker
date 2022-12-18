@@ -1,7 +1,9 @@
-package com.bug_tracker.tickets;
+package com.bug_tracker.ticket;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
+import com.bug_tracker.comment.CommentDTO;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -10,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TicketsDTO {
+public class TicketDTO {
 
     private Long id;
 
@@ -34,10 +36,12 @@ public class TicketsDTO {
     private Long projektLink;
 
     @NotNull
-    private Long author;
+    private String author;
 
-    private Long assigned;
+    private String assigned;
 
     private OffsetDateTime lastUpdated;
+
+    private List<CommentDTO>  ticketComments;
 
 }

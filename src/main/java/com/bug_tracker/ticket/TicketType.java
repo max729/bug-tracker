@@ -1,4 +1,4 @@
-package com.bug_tracker.tickets;
+package com.bug_tracker.ticket;
 
 
 public enum TicketType {

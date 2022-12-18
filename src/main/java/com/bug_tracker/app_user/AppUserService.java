@@ -3,10 +3,10 @@ package com.bug_tracker.app_user;
 import com.bug_tracker.auth.Jwt;
 import com.bug_tracker.auth.Login;
 import com.bug_tracker.email.MailServices;
-import com.bug_tracker.tickets.Priority;
-import com.bug_tracker.tickets.TicketStatus;
-import com.bug_tracker.tickets.Tickets;
-import com.bug_tracker.tickets.TicketsRepository;
+import com.bug_tracker.ticket.Priority;
+import com.bug_tracker.ticket.Ticket;
+import com.bug_tracker.ticket.TicketStatus;
+import com.bug_tracker.ticket.TicketRepository;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -24,7 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class AppUserService {
 
     private final AppUserRepository appUserRepository;
-    private final TicketsRepository ticketsRepository;
+    private final TicketRepository ticketRepository;
 
 
     private final PasswordEncoder passwordEncoder;
@@ -35,14 +35,14 @@ public class AppUserService {
     private final MailServices mailServices;
 
     public AppUserService(final AppUserRepository appUserRepository,
-                        TicketsRepository ticketsRepository,
+                        TicketRepository ticketsRepository,
                           final PasswordEncoder passwordEncoder,
                           @Value("${application.security.access-token-secret}") String accessTokenSecret,
                           @Value("${application.security.refresh-token-secret}") String refreshTokenSecret,
                           @Value("${application.security.forgot-token-secret}")String forgotTokenSecret,
                           MailServices mailServices) {
         this.appUserRepository = appUserRepository;
-        this.ticketsRepository = ticketsRepository;
+        this.ticketRepository = ticketsRepository;
         this.passwordEncoder = passwordEncoder;
         this.accessTokenSecret = accessTokenSecret;
         this.refreshTokenSecret = refreshTokenSecret;
@@ -57,13 +57,13 @@ public class AppUserService {
                 .collect(Collectors.toList());
     }
 
-    public AppUserDTO get(final Long id) {
+    public AppUserDTO get(final String id) {
         return appUserRepository.findById(id)
                 .map(appUser -> mapToDTO(appUser, new AppUserDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Long create(final AppUserDTO appUserDTO) {
+    public String create(final AppUserDTO appUserDTO) {
         final AppUser appUser = new AppUser();
         mapToEntity(appUserDTO, appUser);
 
@@ -71,14 +71,14 @@ public class AppUserService {
         return appUserRepository.save(appUser).getId();
     }
 
-    public void update(final Long id, final AppUserDTO appUserDTO) {
+    public void update(final String id, final AppUserDTO appUserDTO) {
         final AppUser appUser = appUserRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         mapToEntity(appUserDTO, appUser);
         appUserRepository.save(appUser);
     }
 
-    public void delete(final Long id) {
+    public void delete(final String id) {
         appUserRepository.deleteById(id);
     }
 
@@ -161,7 +161,7 @@ public class AppUserService {
 
     }
 
-    public AppUserStatsDTO AppUserStats(Long id) {
+    public AppUserStatsDTO AppUserStats(String id) {
 
         EnumMap<Priority, Integer> totalTicktetsByPriority = new EnumMap<Priority, Integer>(Priority.class);
         EnumMap<TicketStatus, Integer> totalTicktetsByStatus = new EnumMap<TicketStatus, Integer>(TicketStatus.class);
@@ -173,11 +173,11 @@ public class AppUserService {
             totalTicktetsByStatus.put(ele,0);
         }
 
-        List<Tickets> tickets =  ticketsRepository.findAll();//findTicketsByUserProjekts(id);
+        List<Ticket> tickets =  ticketRepository.findAll();//findTicketsByUserProjekts(id);
 
         int totalTickets = 0;
 
-        for (Tickets ticket: tickets) {
+        for (Ticket ticket: tickets) {
             totalTickets++;
             totalTicktetsByStatus.put(ticket.getStatus(), totalTicktetsByStatus.get(ticket.getStatus())+1);
             totalTicktetsByPriority.put(ticket.getPriority(), totalTicktetsByPriority.get(ticket.getPriority())+1);

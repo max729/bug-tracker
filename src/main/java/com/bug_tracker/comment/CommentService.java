@@ -2,8 +2,8 @@ package com.bug_tracker.comment;
 
 import com.bug_tracker.app_user.AppUser;
 import com.bug_tracker.app_user.AppUserRepository;
-import com.bug_tracker.tickets.Tickets;
-import com.bug_tracker.tickets.TicketsRepository;
+import com.bug_tracker.ticket.Ticket;
+import com.bug_tracker.ticket.TicketRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
@@ -17,13 +17,13 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final AppUserRepository appUserRepository;
-    private final TicketsRepository ticketsRepository;
+    private final TicketRepository ticketRepository;
 
     public CommentService(final CommentRepository commentRepository,
-            final AppUserRepository appUserRepository, final TicketsRepository ticketsRepository) {
+            final AppUserRepository appUserRepository, final TicketRepository ticketRepository) {
         this.commentRepository = commentRepository;
         this.appUserRepository = appUserRepository;
-        this.ticketsRepository = ticketsRepository;
+        this.ticketRepository = ticketRepository;
     }
 
     public List<CommentDTO> findAll() {
@@ -69,7 +69,7 @@ public class CommentService {
         final AppUser userLink = commentDTO.getUserLink() == null ? null : appUserRepository.findById(commentDTO.getUserLink())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "userLink not found"));
         comment.setUserLink(userLink);
-        final Tickets ticket = commentDTO.getTicket() == null ? null : ticketsRepository.findById(commentDTO.getTicket())
+        final Ticket ticket = commentDTO.getTicket() == null ? null : ticketRepository.findById(commentDTO.getTicket())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ticket not found"));
         comment.setTicket(ticket);
         return comment;

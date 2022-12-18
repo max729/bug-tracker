@@ -81,7 +81,7 @@ let apiData = ref(null);
 onMounted(async () => {
 
 try {
-    const response = await axios.get("/tickets");
+    const response = await axios.get("/ticket");
 
     apiData.value = response.data;
 

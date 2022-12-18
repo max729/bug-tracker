@@ -1,8 +1,8 @@
-package com.bug_tracker.tickets;
+package com.bug_tracker.ticket;
 
 import com.bug_tracker.app_user.AppUser;
 import com.bug_tracker.comment.Comment;
-import com.bug_tracker.projekt.Projekt;
+import com.bug_tracker.project.Project;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -28,7 +28,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Tickets {
+public class Ticket {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -54,8 +54,8 @@ public class Tickets {
     private TicketType typ;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "projekt_link_id")
-    private Projekt projektLink;
+    @JoinColumn(name = "project_link_id")
+    private Project projectLink;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)

@@ -1,4 +1,4 @@
-package com.bug_tracker.tickets;
+package com.bug_tracker.ticket;
 
 import com.bug_tracker.app_user.AppUser;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,43 +20,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
-public class TicketsResource {
+public class TicketResource {
 
-    private final TicketsService ticketsService;
+    private final TicketService ticketService;
 
-    public TicketsResource(final TicketsService ticketsService) {
-        this.ticketsService = ticketsService;
+    public TicketResource(final TicketService ticketService) {
+        this.ticketService = ticketService;
     }
 
     @GetMapping
-    public ResponseEntity<List<TicketsDTO>> getAllTicketss(HttpServletRequest request) {
+    public ResponseEntity<List<TicketDTO>> getAllTickets(HttpServletRequest request) {
         var appUser = (AppUser) request.getAttribute("appUser");
 
-        return ResponseEntity.ok(ticketsService.findAll());
+        return ResponseEntity.ok(ticketService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TicketsDTO> getTickets(@PathVariable final Long id) {
-        return ResponseEntity.ok(ticketsService.get(id));
+    public ResponseEntity<TicketDTO> getTicket(@PathVariable final Long id) {
+        return ResponseEntity.ok(ticketService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createTickets(@RequestBody @Valid final TicketsDTO ticketsDTO) {
-        return new ResponseEntity<>(ticketsService.create(ticketsDTO), HttpStatus.CREATED);
+    public ResponseEntity<Long> createTicket(@RequestBody @Valid final TicketDTO ticketDTO) {
+        return new ResponseEntity<>(ticketService.create(ticketDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateTickets(@PathVariable final Long id,
-            @RequestBody @Valid final TicketsDTO ticketsDTO) {
-        ticketsService.update(id, ticketsDTO);
+    public ResponseEntity<Void> updateTicket(@PathVariable final Long id,
+                                             @RequestBody @Valid final TicketDTO ticketDTO) {
+        ticketService.update(id, ticketDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteTickets(@PathVariable final Long id) {
-        ticketsService.delete(id);
+    public ResponseEntity<Void> deleteTicket(@PathVariable final Long id) {
+        ticketService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

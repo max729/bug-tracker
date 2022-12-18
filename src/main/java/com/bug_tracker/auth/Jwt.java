@@ -20,7 +20,7 @@ public class Jwt {
         this.token = token;
     }
 
-    public static Jwt of(Long userId, Long validityInMinutes, String secretKey) {
+    public static Jwt of(String userId, Long validityInMinutes, String secretKey) {
         var issueDate = Instant.now();
         return new Jwt(Jwts.builder()
                 .claim("user_id", userId)
@@ -35,7 +35,7 @@ public class Jwt {
     }
 
 
-    public static Long from(final String token, final String secretKey) {
+    public static String from(final String token, final String secretKey) {
 
 
         Jws<Claims> jws;
@@ -47,7 +47,7 @@ public class Jwt {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage() + " -T");
         }
 
-        return jws.getBody().get("user_id", Long.class);
+        return jws.getBody().get("user_id", String.class);
     }
 
 }

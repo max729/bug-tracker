@@ -17,14 +17,14 @@ public class Login {
         this.refreshJwt = refreshJwt;
     }
 
-    public static Login of(final Long userId,final String accessSecret,final String refreshSecret){
+    public static Login of(final String userId,final String accessSecret,final String refreshSecret){
         return new Login(
                 Jwt.of(userId, ACCESS_TOKEN_VALIDITY, accessSecret),
                 Jwt.of(userId, REFRESH_TOKEN_VALIDITY, refreshSecret)
         );
     }
 
-    public static Login of(final Long userId,final String accessSecret,final Jwt refreshSecret){
+    public static Login of(final String userId,final String accessSecret,final Jwt refreshSecret){
         return new Login(
                 Jwt.of(userId, ACCESS_TOKEN_VALIDITY, accessSecret),
                 refreshSecret

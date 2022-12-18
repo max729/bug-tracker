@@ -57,7 +57,7 @@ const id = route.params.id;
 onMounted(async () => {
 
 try {
-    const response = await axios.get("/tickets/" + id );  
+    const response = await axios.get("/ticket/" + id );
     apiData.value = response.data;
 
 } catch (e) {

@@ -3,9 +3,16 @@
     <div v-if="apiData"  class="card shadow my-3" >
       <div class="card-body">
         <h5 class="card-title">Ticket Details</h5>
-        <li v-for="(key,value) in apiData" >
-          {{key}} : {{ value }}
+        <li >
+          projektName : {{ apiData.projektName }}
         </li>
+        <li >
+          projektDescription : {{ apiData.projektDescription }}
+        </li>
+        <li >
+          allUsers :  <p v-for="id in  apiData.allUsers" > {{id}}</p>
+        </li>
+
        
       </div>
       <div class="card-body">
@@ -14,6 +21,10 @@
     
     
     </div>
+    <div v-else>
+    cant get data
+    </div>
+
     
     
     </template>

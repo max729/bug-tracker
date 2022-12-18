@@ -28,7 +28,7 @@ public class AppUserResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AppUserDTO> getAppUser(@PathVariable final Long id) {
+    public ResponseEntity<AppUserDTO> getAppUser(@PathVariable final String id) {
         return ResponseEntity.ok(appUserService.get(id));
     }
 
@@ -55,7 +55,7 @@ public class AppUserResource {
 
     @PostMapping("/register")
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createAppUser(@RequestBody @Valid final AppUserDTO appUserDTO) {
+    public ResponseEntity<String> createAppUser(@RequestBody @Valid final AppUserDTO appUserDTO) {
         return new ResponseEntity<>(appUserService.create(appUserDTO), HttpStatus.CREATED);
     }
 
@@ -120,7 +120,7 @@ public class AppUserResource {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateAppUser(@PathVariable final Long id,
+    public ResponseEntity<Void> updateAppUser(@PathVariable final String id,
             @RequestBody @Valid final AppUserDTO appUserDTO) {
         appUserService.update(id, appUserDTO);
         return ResponseEntity.ok().build(); 
@@ -128,7 +128,7 @@ public class AppUserResource {
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteAppUser(@PathVariable final Long id) {
+    public ResponseEntity<Void> deleteAppUser(@PathVariable final String id) {
         appUserService.delete(id);
         return ResponseEntity.noContent().build();
     }
