@@ -2,6 +2,8 @@ package com.bug_tracker.ticket;
 
 import com.bug_tracker.app_user.AppUser;
 import com.bug_tracker.app_user.AppUserRepository;
+import com.bug_tracker.comment.CommentRepository;
+import com.bug_tracker.comment.CommentService;
 import com.bug_tracker.project.Project;
 import com.bug_tracker.project.ProjectRepository;
 import java.util.List;
@@ -18,12 +20,16 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final ProjectRepository projectRepository;
     private final AppUserRepository appUserRepository;
+    private final CommentService commentService;
 
     public TicketService(final TicketRepository ticketRepository,
-                         final ProjectRepository projectRepository, final AppUserRepository appUserRepository) {
+                         final ProjectRepository projectRepository,
+                         final AppUserRepository appUserRepository,
+                         final CommentService commentService) {
         this.ticketRepository = ticketRepository;
         this.projectRepository = projectRepository;
         this.appUserRepository = appUserRepository;
+        this.commentService = commentService;
     }
 
     public List<TicketDTO> findAll() {
@@ -37,10 +43,14 @@ public class TicketService {
 
     public TicketDTO get(final Long id) {
 
-
-        return ticketRepository.findById(id)
+        TicketDTO ticketDTO =  ticketRepository.findById(id)
                 .map(tickets -> mapToDTO(tickets, new TicketDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        commentService.findAllByTicketId(id)  ;
+                //ticketDTO.setTicketComments(  );
+
+        return ticketDTO;
     }
 
     public Long create(final TicketDTO ticketDTO) {

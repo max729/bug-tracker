@@ -33,6 +33,14 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public List<CommentDTO> findAllByTicketId(final Long id) {
+        return commentRepository.findByTicketId(id)  
+                .stream()
+                .map(comment -> mapToDTO(comment, new CommentDTO()))
+                .collect(Collectors.toList());
+    }
+
+
     public CommentDTO get(final Long id) {
         return commentRepository.findById(id)
                 .map(comment -> mapToDTO(comment, new CommentDTO()))

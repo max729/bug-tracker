@@ -4,6 +4,11 @@
      <h1 class="h3 mb-3 fw-normal">Please Register</h1>
 
     <div class="form-floating">
+      <input v-model="data.id" type="text" class="form-control"  placeholder="Userame">
+      <label >User Name</label>
+    </div>
+
+    <div class="form-floating">
       <input v-model="data.email" type="email" class="form-control"  placeholder="name@example.com">
       <label >Email address</label>
     </div>
@@ -30,55 +35,36 @@
 </main>
 </template>
 
-<script>
+<script setup>
 import { reactive } from 'vue';
 import axios from 'axios';
 import { useRouter } from "vue-router";
 
-export default {
-  name:   "Register",
-  setup() {
-    const data = reactive({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: ""
-    }
+const data = reactive({
+  id : "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: ""
+});
 
-    
-    );
+const router = useRouter();
 
-    const router = useRouter();
+const submit = async () => {
+  try {
 
-    const submit = async () =>{
+    await axios.post("/appUsers/register", data, {
+      'Content-Type': 'application/json',
+    });
 
+    await router.push('/login');
 
-      try{
-        
-        await axios.post( "/appUsers/register" , data,{
-          'Content-Type': 'application/json',
-        });
+  } catch (e) {
+    console.log(e);
 
-        await router.push('/login');
-
-      } catch (e) {
-        console.log(e);
-
-      }
-        
-
-      
-      
-
-    }
-
-    return {
-      data,
-      submit
-    }
   }
+};
 
-}
 
 </script>
 

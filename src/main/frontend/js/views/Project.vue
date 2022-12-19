@@ -4,10 +4,10 @@
       <div class="card-body">
         <h5 class="card-title">Ticket Details</h5>
         <li >
-          projektName : {{ apiData.projektName }}
+          projektName : {{ apiData.projectName }}
         </li>
         <li >
-          projektDescription : {{ apiData.projektDescription }}
+          projektDescription : {{ apiData.projectDescription }}
         </li>
         <li >
           allUsers :  <p v-for="id in  apiData.allUsers" > {{id}}</p>
@@ -48,7 +48,7 @@
     onMounted(async () => {
     
     try {
-        const response = await axios.get("/projekts/" + id );  
+        const response = await axios.get("/projects/" + id );  
         apiData.value = response.data;
     
     } catch (e) {

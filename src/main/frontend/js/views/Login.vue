@@ -44,7 +44,7 @@ const data = reactive({
 
 const submit = async (asUser) => {
 
-  const guestUser = { email: "aadwwd@daw.de", password: "12345" }
+  const guestUser = { email: "guest@mail.com", password: "12345" }
 
   const response = await axios.post("/appUsers/login", asUser ? data : guestUser,
     {
@@ -62,7 +62,7 @@ const submit = async (asUser) => {
 
   await store.dispatch('setAuth', true);
 
-  await router.push("/ticket");
+  await router.push("/tickets");
 
 
 }

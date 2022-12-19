@@ -2,7 +2,7 @@
 
     <div class="card shadow my-3">
         <div class="card-body">
-        <h2 class="">Prjects</h2>
+        <h2 class="">Projects</h2>
     
       <form id="search">
         Search <input class="form-control form-control-dark rounded-3 border-1" v-model="searchQuery">
@@ -29,7 +29,7 @@
                 <td>
                     <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{entry.projektName}}</h6>
+                            <h6 class="mb-0 text-sm">{{entry.projectName}}</h6>
                         </div>
                     </div>
                 </td>
@@ -71,7 +71,7 @@
     onMounted(async () => {
     
     try {
-        const response = await axios.get("/projekts");
+        const response = await axios.get("/projects");
     
         apiData.value = response.data;
    
@@ -85,7 +85,7 @@
     
     
     const searchQuery = ref('')
-    const gridColumns = ['projektName', 'dateCreated']
+    const gridColumns = ['projectName', 'dateCreated']
     
     
     const sortKey = ref('')

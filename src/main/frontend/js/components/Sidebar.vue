@@ -14,13 +14,18 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/ticket" class="nav-link px-md-0 px-2">
+          <router-link to="/tickets" class="nav-link px-md-0 px-2">
             <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-md-inline">Tickets</span> 
           </router-link>
         </li>
         <li>
           <router-link to="/projects" class="nav-link px-md-0 px-2">
             <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-md-inline">Projects</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/appUsers" class="nav-link px-md-0 px-2">
+            <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-md-inline">App-Users</span>
           </router-link>
         </li>
       </ul>

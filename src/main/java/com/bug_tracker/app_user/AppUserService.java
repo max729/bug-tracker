@@ -64,10 +64,17 @@ public class AppUserService {
     }
 
     public String create(final AppUserDTO appUserDTO) {
+        
+        if( appUserDTO.getPassword() != "" || appUserDTO.getEmail() != "" || appUserDTO.getId() != ""   ) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+        // TODO custom throw if duplicate
+
         final AppUser appUser = new AppUser();
         mapToEntity(appUserDTO, appUser);
 
-        appUser.setUserRole(UserRole.DEV);
+        appUser.setUserRole(UserRole.GUEST);
+
         return appUserRepository.save(appUser).getId();
     }
 
@@ -83,7 +90,7 @@ public class AppUserService {
     }
 
     public AppUserDTO mapToDTO(final AppUser appUser, final AppUserDTO appUserDTO) {
-        //appUserDTO.setId(appUser.getId());
+        appUserDTO.setId(appUser.getId());
         appUserDTO.setFirstName(appUser.getFirstName());
         appUserDTO.setLastName(appUser.getLastName());
         appUserDTO.setEmail(appUser.getEmail());
@@ -92,10 +99,12 @@ public class AppUserService {
     }
 
     private AppUser mapToEntity(final AppUserDTO appUserDTO, final AppUser appUser) {
+        appUser.setId(appUserDTO.getId());
         appUser.setFirstName(appUserDTO.getFirstName());
         appUser.setLastName(appUserDTO.getLastName());
         appUser.setEmail(appUserDTO.getEmail());
         appUser.setUserRole(appUserDTO.getUserRole());
+        appUser.setPassword( passwordEncoder.encode(appUserDTO.getPassword()));
         return appUser;
     }
 

@@ -3,6 +3,7 @@ package com.bug_tracker.ticket;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import com.bug_tracker.comment.Comment;
 import com.bug_tracker.comment.CommentDTO;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

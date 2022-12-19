@@ -2,11 +2,31 @@
 
 <div class="card shadow my-3">
     <div class="card-body">
-    <h2 class="">Tickets</h2>
+    
+    <div class="row">
+      <h2 class="col-auto ">Tickets</h2>
 
-  <form id="search">
-    Search <input class="form-control form-control-dark rounded-3 border-1" v-model="searchQuery">
-  </form>
+      <div class="col"> 
+        <div class="row justify-content-end mx-2">
+          <button class="btn btn-primary btn-sm col-auto ">Add </button>
+        </div>
+        
+      </div>
+      
+    </div>
+ <form id="search">
+    <div class="row">
+     
+        <label class="col-md-2 col-form-label">Search: </label> 
+        <div class="col-md-10">
+          <input class="form-control form-control-dark rounded-3 border-1 " v-model="searchQuery">
+        </div>
+        
+     
+
+    </div>
+   </form>  
+  
 
 <table class="table align-items-center mb-0" v-if="filteredData.length">
     <thead>
@@ -54,7 +74,7 @@
     </tbody>
 </table>
 
-<p v-else>No matches found.</p>
+<p v-else class="mt-3" >- No matches found.</p>
 
 
 
@@ -81,7 +101,7 @@ let apiData = ref(null);
 onMounted(async () => {
 
 try {
-    const response = await axios.get("/ticket");
+    const response = await axios.get("/tickets");
 
     apiData.value = response.data;
 

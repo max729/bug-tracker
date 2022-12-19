@@ -10,6 +10,7 @@ import Tickets from "../views/Tickets.vue";
 import Ticket from "../views/Ticket.vue"
 import Projects from "../views/Projects.vue";
 import Project from "../views/Project.vue"
+import AppUsers from "../views/AppUsers.vue"
 
 
 const routes = [
@@ -61,6 +62,11 @@ const routes = [
         path: '/project/:id',
         name: 'Project',
         component: Project
+    },
+    {
+        path: '/appUsers',
+        name: 'AppUsers',
+        component: AppUsers
     }
 ]
 
