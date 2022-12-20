@@ -9,8 +9,8 @@
       </a>
       <ul class="nav nav-pills flex-md-column flex-row flex-nowrap flex-shrink-1 flex-md-grow-0 flex-grow-1 mb-md-auto mb-0 justify-content-center align-items-center align-items-md-start" id="menu">
         <li class="nav-item">
-          <router-link to="/Home" class="nav-link px-md-0 px-2">
-            <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-md-inline">Home</span>
+          <router-link to="/userStats" class="nav-link px-md-0 px-2">
+            <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-md-inline">Stats</span>
           </router-link>
         </li>
         <li>
