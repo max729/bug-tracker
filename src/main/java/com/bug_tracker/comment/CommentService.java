@@ -48,6 +48,7 @@ public class CommentService {
     }
 
     public Long create(final CommentDTO commentDTO) {
+        // ToDo check userlink and ticketLink
         final Comment comment = new Comment();
         mapToEntity(commentDTO, comment);
         return commentRepository.save(comment).getId();

@@ -38,7 +38,7 @@ public class Comment {
     private AppUser userLink;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticket_id")
+    @JoinColumn(name = "ticket_id", nullable = false)
     private Ticket ticket;
 
     @CreatedDate

@@ -17,8 +17,10 @@ public class CommentDTO {
     private String comment;
 
     @NotNull
+    @Size(max = 24)
     private String userLink;
 
+    @NotNull
     private Long ticket;
 
 }

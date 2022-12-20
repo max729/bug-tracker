@@ -42,9 +42,25 @@
   <div class="card-footer">
     <button type="button" class="btn btn-primary">Edit</button>
   </div>
-
-
 </div>
+
+
+  <div class="card my-1 shadow" v-if="apiData">
+    <div class="card-header">
+      <h5 class="card-title">Comments</h5>
+    </div>
+    <div class="card-body" >
+      <div class="row border rounded my-2" v-for="com in apiData.ticketComments">
+        <div class="col-2">{{ com.userLink }}</div>
+        <div class="col-10">{{ com.comment }}</div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
 
 
 </template>
