@@ -25,6 +25,6 @@ axios.interceptors.response.use( resp => resp, async error => {
     }
     refresh = false;
 
-    return error;
+    return Promise.reject(error);
 
 } );

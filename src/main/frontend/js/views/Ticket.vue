@@ -1,34 +1,45 @@
 <template>
 
 <div v-if="apiData"  class="card shadow my-3" >
-  <div class="card-body">
+  <div class="card-header">
     <h5 class="card-title">Ticket Details</h5>
-    <li  >
-      Name : {{ apiData.name  }}
-    </li>
-    <li  >
-      Status : {{ apiData.status  }}
-    </li>
-    <li  >
-      Description : {{ apiData.description  }}
-    </li>
-    <li  >
-      Priority : {{ apiData.priority  }}
-    </li>
-    <li  >
-      Typ : {{ apiData.typ  }}
-    </li>
-    <li  >
-      Author : {{ apiData.author  }}
-    </li>
-    <li  >
-      Assigned : {{ apiData.assigned  }}
-    </li>
-    <li  >
-      LastUpdated : {{ apiData.lastUpdated }}
-    </li>
   </div>
+  
   <div class="card-body">
+    <div class="row">
+      <div class="col-12 my-3 col-sm-6">
+        Name : <br>
+        {{ apiData.name  }}
+      </div>
+      <div class="col-12 my-3 col-sm-6">
+        Typ : <br>
+        {{ apiData.typ  }}
+      </div>
+      <div class="col-12  my-3 col-sm-6">
+        Author : <br>
+        {{ apiData.author  }}
+      </div>
+      <div class="col-12 my-3 col-sm-6">
+        Assigned : <br>
+        {{ apiData.assigned  }}
+      </div>
+      <div class="col-12 my-3 col-sm-6">
+        Status : <br>
+        {{ apiData.status  }}
+      </div>
+      <div class="col-12 my-3 col-sm-6">
+        Priority : <br>
+        {{ apiData.priority  }}
+      </div>
+      <div class="col-12 my-3">
+        Description : <br>
+        {{ apiData.description  }}
+      </div>
+
+    </div>
+
+  </div>
+  <div class="card-footer">
     <button type="button" class="btn btn-primary">Edit</button>
   </div>
 

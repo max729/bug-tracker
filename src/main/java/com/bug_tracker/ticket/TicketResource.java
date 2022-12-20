@@ -30,7 +30,7 @@ public class TicketResource {
 
     @GetMapping
     public ResponseEntity<List<TicketDTO>> getAllTickets(HttpServletRequest request) {
-        var appUser = (AppUser) request.getAttribute("appUser");
+        //var appUser = (AppUser) request.getAttribute("appUser");
 
         return ResponseEntity.ok(ticketService.findAll());
     }

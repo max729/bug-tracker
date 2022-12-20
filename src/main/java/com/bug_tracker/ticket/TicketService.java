@@ -2,7 +2,6 @@ package com.bug_tracker.ticket;
 
 import com.bug_tracker.app_user.AppUser;
 import com.bug_tracker.app_user.AppUserRepository;
-import com.bug_tracker.comment.CommentRepository;
 import com.bug_tracker.comment.CommentService;
 import com.bug_tracker.project.Project;
 import com.bug_tracker.project.ProjectRepository;
@@ -47,8 +46,8 @@ public class TicketService {
                 .map(tickets -> mapToDTO(tickets, new TicketDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        commentService.findAllByTicketId(id)  ;
-                //ticketDTO.setTicketComments(  );
+          
+        ticketDTO.setTicketComments( commentService.findAllByTicketId(id) );
 
         return ticketDTO;
     }

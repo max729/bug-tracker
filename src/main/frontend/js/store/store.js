@@ -13,6 +13,7 @@ export default createStore({
     },
     mutations: {
         setAuth(state ,auth){
+            localStorage.setItem("auth", auth.toString() )
             state.auth=auth; 
         },
         setUser(state ,user){
@@ -21,6 +22,7 @@ export default createStore({
     },
     actions:  {
         setAuth( context  , auth){
+            ;
             context.commit( 'setAuth', auth );
         },
         setUser( context  , user){
