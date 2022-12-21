@@ -37,7 +37,7 @@ public class TicketResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<TicketDTO> getTicket(@PathVariable final Long id) {
-        return ResponseEntity.ok(ticketService.get(id));
+        return ResponseEntity.ok(ticketService.get2(id));
     }
 
     @PostMapping

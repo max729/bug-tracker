@@ -14,6 +14,7 @@ spring:
     open-in-view: false
     properties:
       hibernate:
+        format_sql: false
         jdbc:
           lob:
             non_contextual_creation: true

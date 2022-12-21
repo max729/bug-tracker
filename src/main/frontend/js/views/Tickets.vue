@@ -1,85 +1,157 @@
 <template>
 
-<div class="card shadow my-3">
+  <div class="card shadow my-3">
     <div class="card-body">
-    
-    <div class="row">
-      <h2 class="col-auto ">Tickets</h2>
 
-      <div class="col"> 
-        <div class="row justify-content-end mx-2">
-          <button class="btn btn-primary btn-sm col-auto ">Add </button>
+      <div class="row">
+        <h2 class="col-auto ">Tickets</h2>
+
+        <div class="col">
+          <div class="row justify-content-end mx-2">
+            <button class="btn btn-primary btn-sm col-auto " data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Add
+            </button>
+          </div>
+
         </div>
-        
+
       </div>
-      
-    </div>
- <form id="search">
-    <div class="row">
-     
-        <label class="col-md-2 col-form-label">Search: </label> 
-        <div class="col-md-10">
-          <input class="form-control form-control-dark rounded-3 border-1 " v-model="searchQuery">
+      <form id="search">
+        <div class="row">
+
+          <label class="col-md-2 col-form-label">Search: </label>
+          <div class="col-md-10">
+            <input class="form-control form-control-dark rounded-3 border-1 " v-model="searchQuery">
+          </div>
+
+
+
         </div>
-        
-     
+      </form>
 
-    </div>
-   </form>  
-  
 
-<table class="table align-items-center mb-0" v-if="filteredData.length">
-    <thead>
-        <tr>
-            <th @click="sortBy(gridColumns[0])" :class="{   'text-secondary' : sortKey !== gridColumns[0]}"
-                class="text-uppercase   text-xxs font-weight-bolder">
-              {{gridColumns[0]}} <span class="arrow" :class="sortOrders[gridColumns[0]] > 0 ? 'asc' : 'dsc'"></span>
+      <table class="table align-items-center mb-0" v-if="filteredData.length">
+        <thead>
+          <tr>
+            <th @click="sortBy(gridColumns[0])" :class="{ 'text-secondary': sortKey !== gridColumns[0] }"
+              class="text-uppercase   text-xxs font-weight-bolder">
+              {{ gridColumns[0] }} <span class="arrow" :class="sortOrders[gridColumns[0]] > 0 ? 'asc' : 'dsc'"></span>
             </th>
-            <th @click="sortBy(gridColumns[1])" :class="{   'text-secondary' : sortKey !== gridColumns[1]}"
-            class="text-center text-uppercase  text-xxs font-weight-bolder">{{gridColumns[1]}}
+            <th @click="sortBy(gridColumns[1])" :class="{ 'text-secondary': sortKey !== gridColumns[1] }"
+              class="text-center text-uppercase  text-xxs font-weight-bolder">{{ gridColumns[1] }}
               <span class="arrow" :class="sortOrders[gridColumns[1]] > 0 ? 'asc' : 'dsc'"></span>
             </th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">Status</th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">pRIORITY</th>
             <th class="text-secondary opacity-7"></th>
-        </tr>
-    </thead>
+          </tr>
+        </thead>
 
 
-    <tbody>
-        <tr v-for="entry in filteredData">
+        <tbody>
+          <tr v-for="entry in filteredData">
             <td>
-                <div class="d-flex px-2 py-1">
-                    <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">{{entry.name}}</h6>
-                    </div>
+              <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-sm">{{ entry.name }}</h6>
                 </div>
+              </div>
             </td>
             <td class="align-middle text-center text-sm ">
-                <span class="text-secondary text-xs font-weight-bold">{{entry.typ}}</span>
+              <span class="text-secondary text-xs font-weight-bold">{{ entry.typ }}</span>
             </td>
             <td class="align-middle text-center text-sm">
-                <span class="text-secondary text-xs font-weight-bold">{{entry.status}}</span>
+              <span class="text-secondary text-xs font-weight-bold">{{ entry.status }}</span>
             </td>
             <td class="align-middle text-center text-sm">
-                <span class="p-1 text-white bg-opacity-75 rounded-1" 
-                :class="{ 'bg-success' : entry.priority == 'LOW', 'bg-warning' : entry.priority == 'MID', 'bg-danger' : entry.priority == 'HEIGH'  }">
-                {{entry.priority}}</span>
+              <span class="p-1 text-white bg-opacity-75 rounded-1"
+                :class="{ 'bg-success': entry.priority == 'LOW', 'bg-warning': entry.priority == 'MID', 'bg-danger': entry.priority == 'HEIGH' }">
+                {{ entry.priority }}</span>
             </td>
             <td class="align-middle">
-              <router-link :to="{path: '/ticket/' + entry.id }" class="text-secondary font-weight-bold text-xs" >Details</router-link>
+              <router-link :to="{ path: '/ticket/' + entry.id }"
+                class="text-secondary font-weight-bold text-xs">Details</router-link>
             </td>
-        </tr>
-       
-    </tbody>
-</table>
+          </tr>
 
-<p v-else class="mt-3" >- No matches found.</p>
+        </tbody>
+      </table>
+
+      <p v-else class="mt-3">- No matches found.</p>
 
 
 
-</div>
-</div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Ticket</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12 my-3 col-sm-6">
+                Name : <br>
+                <input type="name" class="form-control" >
+              </div>
+              <div class="col-12 my-3 col-sm-6">
+                Typ : <br>
+                <select class="form-select" aria-label="Default select example">
+                  <option >BUG</option>
+                  <option >OTHER</option>
+                  <option >REQUEST</option>
+                </select>
+              </div>
+              <div class="col-12 my-3 col-sm-6">
+                Status : <br>
+                <select class="form-select" aria-label="Default select example">
+                  <option >OPEN</option>
+                  <option >ASSIGNED</option>
+                  <option >MORE_INFOS</option>
+                </select>
+              </div>
+              <div class="col-12 my-3 col-sm-6">
+                Priority : <br>
+                <select class="form-select" >
+                  <option >LOW</option>
+                  <option >MID</option>
+                  <option >HIGH</option>
+                  <option >NONE</option>
+                </select>
+              </div>
+
+
+              <div class="col-12 my-3 col-sm-6">
+                Assigned : <br>
+                drg
+              </div>
+
+              <div class="col-12 my-3 col-sm-6">
+                Project : <br>
+                drg
+              </div>
+
+              <div class="col-12 my-3">
+                Description : <br>
+                <textarea class="form-control"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </template>
 

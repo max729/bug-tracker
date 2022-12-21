@@ -2,11 +2,15 @@ package com.bug_tracker.ticket;
 
 import com.bug_tracker.app_user.AppUser;
 import com.bug_tracker.app_user.AppUserRepository;
+import com.bug_tracker.comment.CommentDTO;
 import com.bug_tracker.comment.CommentService;
 import com.bug_tracker.project.Project;
 import com.bug_tracker.project.ProjectRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -39,6 +43,26 @@ public class TicketService {
                 .map(tickets -> mapToDTO(tickets, new TicketDTO()))
                 .collect(Collectors.toList());
     }
+
+
+    Logger logger = LoggerFactory.getLogger(TicketService.class);
+    public TicketDTO get2(final Long id) {
+
+        Ticket ticket = ticketRepository.findByIdWithComments(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        TicketDTO ticketDTO =  mapToDTO(ticket, new TicketDTO());
+
+        ticketDTO.setTicketComments(ticket.getTicketComments().stream().map(ti -> commentService.mapToDTO(ti, new CommentDTO() )  ).collect(Collectors.toList())
+        );
+
+        
+     
+
+        return ticketDTO;
+    }
+
+
 
     public TicketDTO get(final Long id) {
 

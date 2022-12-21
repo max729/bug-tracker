@@ -1,6 +1,7 @@
 package com.bug_tracker.ticket;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,10 +18,10 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
 
 
-   /*  @Query("""
-        SELECT * FROM Ticket t JOIN Comment c ON t.id = c.ticket WHERE t.id = :id
+    @Query("""
+        SELECT t FROM Ticket t JOIN FETCH t.ticketComments c WHERE t.id = :id
         """)
-    Optional<Ticket> findByIdWithComments (Long id);*/
+    Optional<Ticket> findByIdWithComments (Long id);
 
 
 

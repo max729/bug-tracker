@@ -65,7 +65,7 @@ public class CommentService {
         commentRepository.deleteById(id);
     }
 
-    private CommentDTO mapToDTO(final Comment comment, final CommentDTO commentDTO) {
+    public CommentDTO mapToDTO(final Comment comment, final CommentDTO commentDTO) {
         commentDTO.setId(comment.getId());
         commentDTO.setComment(comment.getComment());
         commentDTO.setUserLink(comment.getUserLink() == null ? null : comment.getUserLink().getId());

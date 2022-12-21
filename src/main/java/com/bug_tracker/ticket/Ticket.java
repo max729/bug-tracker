@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;

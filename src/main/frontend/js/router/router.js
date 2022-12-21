@@ -92,24 +92,14 @@ const router = createRouter({
 
 
 
-router.beforeEach(async (to,from,next)=>{
+/* router.beforeEach(async (to,from,next)=>{
     
-   
-
-    //console.log(store.state.auth)
-
-    console.log( localStorage.getItem("auth")  )
-
     const auth = store.state.auth//$store.state.auth;
-
-    
 
     if( auth == true){
         next();
         return;
     }
-
-    
 
     if(  localStorage.getItem("auth")==null || localStorage.getItem("auth")  == "false"        ){
         if(  to.path == '/register' || to.path == '/login' || to.path == '/forgot' || to.path == '/reset'  ){
@@ -123,21 +113,15 @@ router.beforeEach(async (to,from,next)=>{
 
     }
 
-    //store.dispatch('setUser', data);
-
     if( localStorage.getItem("auth") == "true" ){
 
         try{
 
-
             const { data } = await axios.get("/appUsers/fromToken");
-
 
             store.state.auth=true;
             store.state.user=data;
-            //await store.dispatch('setUser', data);
-
-            //await store.dispatch('setAuth', true);
+ 
 
             next()
         } catch (e) {
@@ -145,12 +129,8 @@ router.beforeEach(async (to,from,next)=>{
             next({path: '/login'})
         }
 
-            
-        
-
     }
 
-
-})
+}) */
 
 export default router;

@@ -5,6 +5,7 @@ import com.bug_tracker.app_user.AppUserRepository;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,16 @@ public class ProjectService {
                 .map(projekt -> mapToDTO(projekt, new ProjectDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
+    public List<ProjectDTO> getByAppUserId(final String id) {
+        return projectRepository.findByAppUserId(id)
+                .stream()
+                .map(projekt -> mapToDTO(projekt, new ProjectDTO()))
+                .collect(Collectors.toList());                
+    }
+
+    
+
 
     public Long create(final ProjectDTO projectDTO) {
         final Project project = new Project();
