@@ -46,9 +46,6 @@ public class ProjectService {
                 .collect(Collectors.toList());                
     }
 
-    
-
-
     public Long create(final ProjectDTO projectDTO) {
         final Project project = new Project();
         mapToEntity(projectDTO, project);

@@ -35,6 +35,14 @@ public class TicketResource {
         return ResponseEntity.ok(ticketService.findAll());
     }
 
+    @GetMapping("/fromToken")
+    public ResponseEntity<List<TicketDTO>> getAppUserByToken(HttpServletRequest request) {
+        
+        var appUser = (AppUser) request.getAttribute("appUser");
+        
+        return ResponseEntity.ok(ticketService.findAllByAppUserId(appUser.getId()));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TicketDTO> getTicket(@PathVariable final Long id) {
         return ResponseEntity.ok(ticketService.get2(id));

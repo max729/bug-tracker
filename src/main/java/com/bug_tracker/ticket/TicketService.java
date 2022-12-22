@@ -44,8 +44,15 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
+    public List<TicketDTO> findAllByAppUserId(final String id) {
+        return ticketRepository.findTicketsByUserAndProjects(id)
+                .stream()
+                .map(tick -> mapToDTO(tick, new TicketDTO()))
+                .collect(Collectors.toList());                
+    }
 
-    Logger logger = LoggerFactory.getLogger(TicketService.class);
+
+    //Logger logger = LoggerFactory.getLogger(TicketService.class);
     public TicketDTO get2(final Long id) {
 
         Ticket ticket = ticketRepository.findByIdWithComments(id)
@@ -56,8 +63,6 @@ public class TicketService {
         ticketDTO.setTicketComments(ticket.getTicketComments().stream().map(ti -> commentService.mapToDTO(ti, new CommentDTO() )  ).collect(Collectors.toList())
         );
 
-        
-     
 
         return ticketDTO;
     }

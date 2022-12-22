@@ -44,6 +44,7 @@ const data = reactive({
 
 const submit = async (asUser) => {
 
+
   const guestUser = { email: "guest@mail.com", password: "12345" }
 
   const response = await axios.post("/appUsers/login", asUser ? data : guestUser,
@@ -56,9 +57,9 @@ const submit = async (asUser) => {
 
   axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
 
-  const { data } = await axios.get("/appUsers/fromToken");
+  const Apidata = await (await axios.get("/appUsers/fromToken")).data;
 
-  await store.dispatch('setUser', data);
+  await store.dispatch('setUser', Apidata);
 
   await store.dispatch('setAuth', true);
 

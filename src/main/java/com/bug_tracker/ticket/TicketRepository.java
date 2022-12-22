@@ -14,7 +14,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
         SELECT t FROM Ticket t WHERE t.projectLink IN
         ( SELECT p.id FROM Project p JOIN AppUser u ON p.id = u.id AND u.id = :id)
         """)
-    List<Ticket> findTicketsByUserProjects(Long id);
+    List<Ticket> findTicketsByUserAndProjects(String id);
 
 
 
