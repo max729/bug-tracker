@@ -67,6 +67,13 @@ public class TicketService {
         return ticketDTO;
     }
 
+    public List<TicketDTO> findAllByAssignedId(String id) {
+
+        return ticketRepository.findallByAssignedId(id)
+                .stream()
+                .map(tick -> mapToDTO(tick, new TicketDTO()))
+                .collect(Collectors.toList()); 
+    }
 
 
     public TicketDTO get(final Long id) {
@@ -136,6 +143,7 @@ public class TicketService {
         ticket.setAssigned(assigned);
         return ticket;
     }
+
 
 
 }

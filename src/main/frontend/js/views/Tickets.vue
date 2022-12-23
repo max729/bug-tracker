@@ -1,10 +1,10 @@
 <template>
 
   <div class="card shadow my-3">
-    <div class="card-body">
-
+  
+    <div class="card-header">
       <div class="row">
-        <h2 class="col-auto ">Tickets</h2>
+        <h2 class="col-auto mb-0">Tickets</h2>
 
         <div class="col">
           <div class="row justify-content-end mx-2">
@@ -16,6 +16,12 @@
         </div>
 
       </div>
+    </div>
+
+
+    <div class="card-body">
+
+
       <form id="search">
         <div class="row">
 
@@ -86,7 +92,8 @@
 
 
   <!-- Modal -->
-  <div v-if=" apiProjectData && apiProjectData.length >0  " class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+  <div v-if="apiProjectData && apiProjectData.length > 0" class="modal fade" id="exampleModal" tabindex="-1"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -98,52 +105,55 @@
             <div class="row">
               <div class="col-12 my-3 col-sm-6">
                 Name : <br>
-                <input v-model="formData.name" type="text" class="form-control" >
+                <input v-model="formData.name" type="text" class="form-control">
               </div>
               <div class="col-12 my-3 col-sm-6">
                 Typ : <br>
-                <select v-model="formData.typ" class="form-select" >
-                  <option >BUG</option>
-                  <option >OTHER</option>
-                  <option >REQUEST</option>
+                <select v-model="formData.typ" class="form-select">
+                  <option>BUG</option>
+                  <option>OTHER</option>
+                  <option>REQUEST</option>
                 </select>
               </div>
               <div class="col-12 my-3 col-sm-6">
                 Status : <br>
                 <select v-model="formData.status" class="form-select" aria-label="Default select example">
-                  <option >OPEN</option>
-                  <option >ASSIGNED</option>
-                  <option >MORE_INFOS</option>
+                  <option>OPEN</option>
+                  <option>ASSIGNED</option>
+                  <option>MORE_INFOS</option>
                 </select>
               </div>
               <div class="col-12 my-3 col-sm-6">
                 Priority : <br>
-                <select v-model="formData.priority"  class="form-select" >
-                  <option >LOW</option>
-                  <option >MID</option>
-                  <option >HIGH</option>
-                  <option >NONE</option>
+                <select v-model="formData.priority" class="form-select">
+                  <option>LOW</option>
+                  <option>MID</option>
+                  <option>HIGH</option>
+                  <option>NONE</option>
                 </select>
               </div>
 
               <div class="col-12 my-3 col-sm-6">
                 Project : <br>
-                <select  @input="formData.projektLink = $event.target.value[0];  activProjectIndex=$event.target.value[1]" class="form-select" >
-                  <option v-for="(project,key) in apiProjectData" :value="[project.id,key]" >{{project.projectName}}</option>
+                <select
+                  @input="formData.projektLink = $event.target.value[0]; activProjectIndex = $event.target.value[1]"
+                  class="form-select">
+                  <option v-for="(project, key) in apiProjectData" :value="[project.id, key]">{{ project.projectName }}
+                  </option>
                 </select>
               </div>
 
 
 
-              <div  class="col-12 my-3 col-sm-6">
+              <div class="col-12 my-3 col-sm-6">
                 Assigned : <br>
-                <select  v-model="formData.assigned" class="form-select" >
+                <select v-model="formData.assigned" class="form-select">
                   <option :value="null"></option>
-                  <option v-for="projectUser in apiProjectData[activProjectIndex].allUsers" >{{projectUser}}</option>
+                  <option v-for="projectUser in apiProjectData[activProjectIndex].allUsers">{{ projectUser }}</option>
                 </select>
               </div>
 
-              
+
 
               <div class="col-12 my-3">
                 Description : <br>
@@ -161,16 +171,16 @@
     </div>
   </div>
 
-<div class="modal" id="successModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body bg-success">
-        <h5 class="modal-title">Ticket created</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body bg-success">
+          <h5 class="modal-title">Ticket created</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
       </div>
     </div>
   </div>
-</div> 
 
 
 
@@ -248,7 +258,7 @@ const submit = async () => {
 
 onMounted(async () => {
 
-try {
+  try {
     const ticketResponse = await axios.get("/tickets");
 
     apiTicketData.value = ticketResponse.data;
@@ -257,12 +267,12 @@ try {
 
     formData.projektLink = apiProjectData.value.length > 0 ? apiProjectData.value[0].id : null;
 
-   
 
-} catch (e) {
+
+  } catch (e) {
     console.log(e);
     //await store.dispatch('setAuth', false);
-}
+  }
 });
 
 
@@ -278,8 +288,8 @@ const sortOrders = ref(
 )
 
 const filteredData = computed(() => {
-  
-  let data = apiTicketData.value  ? apiTicketData.value : [];
+
+  let data = apiTicketData.value ? apiTicketData.value : [];
   if (searchQuery) {
     let searchQuery1 = searchQuery.value.toLowerCase()
     data = data.filter((row) => {
@@ -313,7 +323,6 @@ function sortBy(key) {
 </script>
     
 <style scoped>
-
 .arrow {
   display: inline-block;
   vertical-align: middle;
@@ -334,5 +343,4 @@ function sortBy(key) {
   border-right: 4px solid transparent;
   border-top: 4px solid rgb(0, 0, 0);
 }
-
 </style>

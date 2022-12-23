@@ -36,11 +36,19 @@ public class TicketResource {
     }
 
     @GetMapping("/fromToken")
-    public ResponseEntity<List<TicketDTO>> getAppUserByToken(HttpServletRequest request) {
+    public ResponseEntity<List<TicketDTO>> getTicketsByToken(HttpServletRequest request) {
         
         var appUser = (AppUser) request.getAttribute("appUser");
         
         return ResponseEntity.ok(ticketService.findAllByAppUserId(appUser.getId()));
+    }
+
+    @GetMapping("/assignToMe")
+    public ResponseEntity<List<TicketDTO>> getTicketsAssignedToToken(HttpServletRequest request) {
+        
+        var appUser = (AppUser) request.getAttribute("appUser");
+        
+        return ResponseEntity.ok(ticketService.findAllByAssignedId(appUser.getId()));
     }
 
     @GetMapping("/{id}")
