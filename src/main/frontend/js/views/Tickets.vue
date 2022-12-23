@@ -86,7 +86,7 @@
 
 
   <!-- Modal -->
-  <div v-if="apiProjectData && apiProjectData.length > 0" class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div v-if=" apiProjectData && apiProjectData.length >0  " class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -154,12 +154,25 @@
           </div>
         </form>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button @click="submit()" type="button" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
   </div>
+
+<div class="modal" id="successModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body bg-success">
+        <h5 class="modal-title">Ticket created</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
 
 </template>
 
@@ -167,9 +180,11 @@
     
     
 <script setup>
-import { computed, onMounted, ref, reactive } from 'vue';
+import { computed, onMounted, ref, reactive, vModelCheckbox } from 'vue';
 import axios from "axios";
 import { useStore } from 'vuex';
+import * as bootstrap from 'bootstrap';
+
 //import DemoGrid from './Grid.vue'
 
 const store = useStore();
@@ -179,10 +194,7 @@ let user = computed(() => store.state.user);
 let apiTicketData = ref(null);
 let apiProjectData = ref(null);
 let activProjectIndex = ref(0);
-/* let activProject = computed(()=>{
-  apiProjectData.find()
-  formData.projektLink
-}) */
+
 
 const formData = reactive({
   name: "",
@@ -192,12 +204,45 @@ const formData = reactive({
   typ: "BUG",
   projektLink: -1,
   assigned: null,
+  author: store.state.user.id,
 
 });
 
 
-const submit = async ()=>{
-  console.log(formData)
+const submit = async () => {
+
+  try {
+
+
+    if (formData.name === "" || (formData.assigned === null && formData.status === "ASSIGNED") || formData.projektLink < 0) {
+      return;
+    }
+
+    const response = await axios.post("/tickets", formData,
+      {
+        'Content-Type': 'application/json',
+        withCredentials: true
+      }
+    )
+
+    if (response.status == 201) {
+
+      const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+
+      modal.hide();
+
+      const succsessModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('successModal'));
+
+      succsessModal.show();
+
+      formData.name = "";
+      formData.description = "";
+
+      apiTicketData.value = await (await axios.get("/tickets")).data;
+
+
+    }
+  } catch (e) { }
 
 }
 

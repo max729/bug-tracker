@@ -5,6 +5,7 @@ export default createStore({
     state:{
         auth: false,
         user:{
+            id: "",
             firstName: "",
             lastName: "",
             email: "",

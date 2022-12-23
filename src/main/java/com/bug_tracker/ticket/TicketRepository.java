@@ -19,9 +19,14 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
 
     @Query("""
-        SELECT t FROM Ticket t JOIN FETCH t.ticketComments c WHERE t.id = :id
+        SELECT t FROM Ticket t LEFT JOIN FETCH t.ticketComments WHERE t.id = :id
         """)
     Optional<Ticket> findByIdWithComments (Long id);
+
+    @Query("""
+        SELECT t FROM Ticket t WHERE t.assigned = :id
+        """)
+    List<Ticket> findallByAssignedId (Long id);
 
 
 
