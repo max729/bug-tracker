@@ -15,7 +15,6 @@ import Projects from "../views/Projects.vue";
 import Project from "../views/Project.vue"
 import AppUsers from "../views/AppUsers.vue"
 
-
 const routes = [
     {
         path: '/',
@@ -85,14 +84,7 @@ const router = createRouter({
     routes
 })
 
-
-
-
-
-
-
-
-/* router.beforeEach(async (to,from,next)=>{
+router.beforeEach(async (to,from,next)=>{
     
     const auth = store.state.auth//$store.state.auth;
 
@@ -131,6 +123,6 @@ const router = createRouter({
 
     }
 
-}) */
+})
 
 export default router;

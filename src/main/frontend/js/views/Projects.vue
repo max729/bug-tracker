@@ -77,7 +77,7 @@
             <div class="row">
               <div class="col-12 my-3 col-sm-6">
                 Name : <br>
-                <input v-model="formData.Projectname" type="text" class="form-control">
+                <input v-model="formData.projectName" type="text" class="form-control">
               </div>
 
 
@@ -85,7 +85,21 @@
                 Description : <br>
                 <textarea v-model="formData.projectDescription" class="form-control"></textarea>
               </div>
+
+              <div class="col-12 my-3">
+                Users : <br>
+                <div class="row">
+                  <div v-for="u in apiAllUserNames" class="col-auto m-1">
+                  <input type="checkbox" :value="u" v-model="formData.allUsers">
+                  <label class="mx-1"> {{  u }}</label>
+                </div>
+                </div>
+                
+              </div>
+
             </div>
+
+
 
           </div>
         </form>
@@ -118,6 +132,7 @@
 import { computed, onMounted, ref,reactive } from 'vue';
 import axios from "axios";
 import { useStore } from 'vuex';
+import * as bootstrap from 'bootstrap';
 //import DemoGrid from './Grid.vue'
 
 const store = useStore();
@@ -125,10 +140,11 @@ let auth = computed(() => store.state.auth);
 let user = computed(() => store.state.user);
 
 let apiData = ref(null);
+let apiAllUserNames = ref([]);
 
 
 const formData = reactive({
-  projectname: "",
+  projectName: "",
   projectDescription: "",
   allUsers: [],
 });
@@ -138,10 +154,10 @@ const submit = async () => {
 
   try {
 
-    console.log(formData)
+    //console.log(formData)
 
 
-    if (formData.Projectname === "" || formData.allUsers.length < 1) {
+    if (formData.projectName === "" || formData.allUsers.length < 1) {
       return;
     }
 
@@ -152,9 +168,13 @@ const submit = async () => {
       }
     )
 
+    
+
     if (response.status == 201) {
 
-      const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+      //console.log(response)
+
+      const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal'));
 
       modal.hide();
 
@@ -162,8 +182,12 @@ const submit = async () => {
 
       succsessModal.show();
 
-      formData.name = "";
-      formData.description = "";
+      formData.projectName = "";
+      formData.projectDescription = "";
+
+      
+
+
 
       //apiTicketData.value = await (await axios.get("/tickets")).data;
 
@@ -181,6 +205,12 @@ onMounted(async () => {
     const response = await axios.get("/projects");
 
     apiData.value = response.data;
+
+    const userdata = await (await axios.get("/appUsers")).data;
+
+    userdata.forEach( ele => apiAllUserNames.value.push( ele.id  )   );
+
+    //allUser.value =  .reduce( (userNames ,user) => [...userNames,user.id] , [] );
 
   } catch (e) {
     console.log(e);
