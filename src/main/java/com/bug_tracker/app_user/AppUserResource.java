@@ -51,19 +51,15 @@ public class AppUserResource {
         return ResponseEntity.ok(appUserService.AppUserStats(  appUser.getId()  ));
     }
 
-
-
     @PostMapping("/register")
     @ApiResponse(responseCode = "201")
     public ResponseEntity<String> createAppUser(@RequestBody @Valid final AppUserDTO appUserDTO) {
         return new ResponseEntity<>(appUserService.create(appUserDTO), HttpStatus.CREATED);
     }
 
-
     record LoginRequest(String email, String password) {}
     record LoginResponse(String token) {}
     @PostMapping("/login")
-    @CrossOrigin(maxAge = 3600)
     @ApiResponse(responseCode = "200")
     public ResponseEntity<LoginResponse> loginAppUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 

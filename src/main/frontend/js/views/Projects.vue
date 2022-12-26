@@ -63,9 +63,8 @@
   </div>
 
 
-    <!-- Modal -->
-    <div v-if="apiData && apiData.length > 0" class="modal fade" id="exampleModal" tabindex="-1"
-    aria-hidden="true">
+  <!-- Modal -->
+  <div v-if="apiData && apiData.length > 0" class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -90,11 +89,11 @@
                 Users : <br>
                 <div class="row">
                   <div v-for="u in apiAllUserNames" class="col-auto m-1">
-                  <input type="checkbox" :value="u" v-model="formData.allUsers">
-                  <label class="mx-1"> {{  u }}</label>
+                    <input type="checkbox" :value="u" v-model="formData.allUsers">
+                    <label class="mx-1"> {{ u }}</label>
+                  </div>
                 </div>
-                </div>
-                
+
               </div>
 
             </div>
@@ -129,7 +128,7 @@
         
         
 <script setup>
-import { computed, onMounted, ref,reactive } from 'vue';
+import { computed, onMounted, ref, reactive } from 'vue';
 import axios from "axios";
 import { useStore } from 'vuex';
 import * as bootstrap from 'bootstrap';
@@ -168,7 +167,7 @@ const submit = async () => {
       }
     )
 
-    
+
 
     if (response.status == 201) {
 
@@ -185,11 +184,10 @@ const submit = async () => {
       formData.projectName = "";
       formData.projectDescription = "";
 
-      
 
 
+      apiData.value = await (await axios.get("/projects")).data;
 
-      //apiTicketData.value = await (await axios.get("/tickets")).data;
 
 
     }
@@ -208,19 +206,15 @@ onMounted(async () => {
 
     const userdata = await (await axios.get("/appUsers")).data;
 
-    userdata.forEach( ele => apiAllUserNames.value.push( ele.id  )   );
+    userdata.forEach(ele => apiAllUserNames.value.push(ele.id));
 
     //allUser.value =  .reduce( (userNames ,user) => [...userNames,user.id] , [] );
 
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     //await store.dispatch('setAuth', false);
   }
 });
-
-
-
-
 
 
 const searchQuery = ref('')

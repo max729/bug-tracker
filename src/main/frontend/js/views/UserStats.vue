@@ -38,80 +38,84 @@
 
     </div>
 
-    <div class="card shadow my-3">
-      <div class="card-body">
+    <div class="card-body">
 
-        <div class="row">
-          <h2 class="col-auto ">Assign Tickets</h2>
-        </div>
-        <form id="search">
+
+      <div class="card shadow my-3">
+        <div class="card-body">
+
           <div class="row">
-
-            <label class="col-md-2 col-form-label">Search: </label>
-            <div class="col-md-10">
-              <input class="form-control form-control-dark rounded-3 border-1 " v-model="searchQuery">
-            </div>
-
-
-
+            <h2 class="col-auto ">Assign Tickets</h2>
           </div>
-        </form>
+          <form id="search">
+            <div class="row">
+
+              <label class="col-md-2 col-form-label">Search: </label>
+              <div class="col-md-10">
+                <input class="form-control form-control-dark rounded-3 border-1 " v-model="searchQuery">
+              </div>
 
 
-        <table class="table align-items-center mb-0" v-if="filteredData.length">
-          <thead>
-            <tr>
-              <th @click="sortBy(gridColumns[0])" :class="{ 'text-secondary': sortKey !== gridColumns[0] }"
-                class="text-uppercase   text-xxs font-weight-bolder">
-                {{ gridColumns[0] }} <span class="arrow" :class="sortOrders[gridColumns[0]] > 0 ? 'asc' : 'dsc'"></span>
-              </th>
-              <th @click="sortBy(gridColumns[1])" :class="{ 'text-secondary': sortKey !== gridColumns[1] }"
-                class="text-center text-uppercase  text-xxs font-weight-bolder">{{ gridColumns[1] }}
-                <span class="arrow" :class="sortOrders[gridColumns[1]] > 0 ? 'asc' : 'dsc'"></span>
-              </th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">Status</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">pRIORITY</th>
-              <th class="text-secondary opacity-7"></th>
-            </tr>
-          </thead>
+
+            </div>
+          </form>
 
 
-          <tbody>
-            <tr v-for="entry in filteredData">
-              <td>
-                <div class="d-flex px-2 py-1">
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ entry.name }}</h6>
+          <table class="table align-items-center mb-0" v-if="filteredData.length">
+            <thead>
+              <tr>
+                <th @click="sortBy(gridColumns[0])" :class="{ 'text-secondary': sortKey !== gridColumns[0] }"
+                  class="text-uppercase   text-xxs font-weight-bolder">
+                  {{ gridColumns[0] }} <span class="arrow"
+                    :class="sortOrders[gridColumns[0]] > 0 ? 'asc' : 'dsc'"></span>
+                </th>
+                <th @click="sortBy(gridColumns[1])" :class="{ 'text-secondary': sortKey !== gridColumns[1] }"
+                  class="text-center text-uppercase  text-xxs font-weight-bolder">{{ gridColumns[1] }}
+                  <span class="arrow" :class="sortOrders[gridColumns[1]] > 0 ? 'asc' : 'dsc'"></span>
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">Status</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">pRIORITY</th>
+                <th class="text-secondary opacity-7"></th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+              <tr v-for="entry in filteredData">
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{ entry.name }}</h6>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td class="align-middle text-center text-sm ">
-                <span class="text-secondary text-xs font-weight-bold">{{ entry.typ }}</span>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="text-secondary text-xs font-weight-bold">{{ entry.status }}</span>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="p-1 text-white bg-opacity-75 rounded-1"
-                  :class="{ 'bg-success': entry.priority == 'LOW', 'bg-warning': entry.priority == 'MID', 'bg-danger': entry.priority == 'HEIGH' }">
-                  {{ entry.priority }}</span>
-              </td>
-              <td class="align-middle">
-                <router-link :to="{ path: '/ticket/' + entry.id }"
-                  class="text-secondary font-weight-bold text-xs">Details</router-link>
-              </td>
-            </tr>
+                </td>
+                <td class="align-middle text-center text-sm ">
+                  <span class="text-secondary text-xs font-weight-bold">{{ entry.typ }}</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="text-secondary text-xs font-weight-bold">{{ entry.status }}</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="p-1 text-white bg-opacity-75 rounded-1"
+                    :class="{ 'bg-success': entry.priority == 'LOW', 'bg-warning': entry.priority == 'MID', 'bg-danger': entry.priority == 'HEIGH' }">
+                    {{ entry.priority }}</span>
+                </td>
+                <td class="align-middle">
+                  <router-link :to="{ path: '/ticket/' + entry.id }"
+                    class="text-secondary font-weight-bold text-xs">Details</router-link>
+                </td>
+              </tr>
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
 
-        <p v-else class="mt-3">- No matches found.</p>
-
+          <p v-else class="mt-3">- No matches found.</p>
 
 
+
+        </div>
       </div>
     </div>
-
 
   </div>
 

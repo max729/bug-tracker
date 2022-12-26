@@ -1,19 +1,45 @@
 <template>
 
-<div class="card shadow my-3" >
-  <div class="card-body">
-    <h5 class="card-title">Profile</h5>
-    <p class="card-text">{{"Firstname: " + user.firstName   }}</p>
-    <p class="card-text">{{"Lastname: " + user.lastName   }}</p>
-    <p class="card-text">{{"Email: " + user.email   }}</p>
-    <p class="card-text">{{"Role: " + user.userRole   }}</p>
-  </div>
-  <div class="card-body">
-    <button type="button" class="btn btn-primary">Edit</button>
-  </div>
 
 
-</div>
+
+
+
+  <div class="card shadow my-3">
+    <div class="card-header">
+      <h5 class="card-title">Profile</h5>
+    </div>
+
+
+
+
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-12 my-3 col-sm-6">
+          Firstname : <br>
+          {{ user.firstName }}
+        </div>
+        <div class="col-12 my-3 col-sm-6">
+          Lastname : <br>
+          {{  user.firstName}}
+        </div>
+        <div class="col-12 my-3 col-sm-6">
+          Email : <br>
+          {{ user.email }}
+        </div>
+        <div class="col-12 my-3 col-sm-6">
+          Role : <br>
+          {{ user.userRole }}
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <button type="button" class="btn btn-primary">Edit</button>
+    </div>
+
+  </div>
 
 
 

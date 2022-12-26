@@ -88,7 +88,7 @@ onMounted(async () => {
     apiData.value = response.data;
 
   } catch (e) {
-    console.log(e);
+    console.log(e.message);
     //await store.dispatch('setAuth', false);
   }
 });
