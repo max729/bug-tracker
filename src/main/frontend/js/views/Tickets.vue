@@ -71,7 +71,7 @@
             </td>
             <td class="align-middle text-center text-sm">
               <span class="p-1 text-white bg-opacity-75 rounded-1"
-                :class="{ 'bg-success': entry.priority == 'LOW', 'bg-warning': entry.priority == 'MID', 'bg-danger': entry.priority == 'HEIGH' }">
+                :class="{ 'bg-success': entry.priority == 'LOW', 'bg-warning': entry.priority == 'MID', 'bg-danger': entry.priority == 'HIGH' }">
                 {{ entry.priority }}</span>
             </td>
             <td class="align-middle">
@@ -182,15 +182,13 @@
     </div>
   </div>
 
-
-
 </template>
 
    
     
     
 <script setup>
-import { computed, onMounted, ref, reactive, vModelCheckbox } from 'vue';
+import { computed, onMounted, ref, reactive } from 'vue';
 import axios from "axios";
 import { useStore } from 'vuex';
 import * as bootstrap from 'bootstrap';

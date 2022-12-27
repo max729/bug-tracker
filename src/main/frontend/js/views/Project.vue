@@ -24,7 +24,7 @@
         </div>
         <div class="col-12 my-3">
           Users : <br>
-          <div v-for="id in  apiData.allUsers" class="d-inline" > {{ id + ", "}}</div>
+          <div v-for="id in  apiData.allUsers" class="d-inline"> {{ id + ", " }}</div>
         </div>
 
       </div>
@@ -37,8 +37,9 @@
 
 
     <div class="card-footer">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit</button>
-      <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#deleteModal" >Delete</button>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+      <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal"
+        data-bs-target="#deleteModal">Delete</button>
     </div>
 
 
@@ -49,8 +50,8 @@
 
 
 
-    <!-- Modal -->
-    <div v-if="apiData " class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+  <!-- Modal -->
+  <div v-if="apiData" class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -71,14 +72,14 @@
                 <textarea v-model="formData.projectDescription" class="form-control"></textarea>
               </div>
 
-             <div class="col-12 my-3">
+              <div class="col-12 my-3">
                 Users : <br>
                 <div class="row">
                   <div v-for="u in apiAllUserNames" class="col-auto m-1">
                     <input type="checkbox" :value="u" v-model="formData.allUsers">
                     <label class="mx-1"> {{ u }}</label>
                   </div>
-                </div> 
+                </div>
 
               </div>
 
@@ -109,22 +110,22 @@
 
 
   <div class="modal" tabindex="-1" id="deleteModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Delete Project</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure ?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="deleteProject()">Delete</button>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="deleteProject()">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
@@ -134,7 +135,7 @@
     
     
 <script setup>
-import { computed, onMounted, ref , reactive} from 'vue';
+import { computed, onMounted, ref, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from "axios";
 import { useStore } from 'vuex';
@@ -158,9 +159,6 @@ const formData = reactive({
 });
 
 
-
-
-
 onMounted(async () => {
 
   try {
@@ -171,14 +169,11 @@ onMounted(async () => {
 
     userdata.forEach(ele => apiAllUserNames.value.push(ele.id));
 
-    Object.assign(formData,{
-    projectName: apiData.value.projectName,
-    projectDescription: apiData.value.projectDescription,
-    allUsers: apiData.value.allUsers
-  })
-
-
-
+    Object.assign(formData, {
+      projectName: apiData.value.projectName,
+      projectDescription: apiData.value.projectDescription,
+      allUsers: apiData.value.allUsers
+    })
 
   } catch (e) {
     console.log(e);
@@ -186,73 +181,67 @@ onMounted(async () => {
   }
 });
 
-const deleteProject = async ()=>{
+const deleteProject = async () => {
 
-  try{
+  try {
 
-    const response = await axios.delete("/projects/" + id );
+    const response = await axios.delete("/projects/" + id);
 
-    if(response.status === 204){
+    if (response.status === 204) {
 
       router.push("/projects")
 
     }
- 
+
   } catch (e) {
 
-    console.log( e.message );
+    console.log(e.message);
 
   }
-  
+
 }
 
 const submit = async () => {
 
-try {
+  try {
 
-  console.log(formData)
+    console.log(formData)
 
 
-  if (formData.projectName === "" || formData.allUsers.length < 1) {
-    return;
-  }
-
-  const response = await axios.put("/projects/" + id , formData,
-    {
-      'Content-Type': 'application/json',
-      withCredentials: true
+    if (formData.projectName === "" || formData.allUsers.length < 1) {
+      return;
     }
-  )
+
+    const response = await axios.put("/projects/" + id, formData,
+      {
+        'Content-Type': 'application/json',
+        withCredentials: true
+      }
+    )
+
+    if (response.status == 200) {
+
+      //console.log(response)
+
+      const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal'));
+
+      modal.hide();
+
+      const succsessModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('successModal'));
+
+      succsessModal.show();
+
+      apiData.value = await (await axios.get("/projects/" + id)).data;
+
+      Object.assign(formData, {
+        projectName: apiData.value.projectName,
+        projectDescription: apiData.value.projectDescription,
+        allUsers: apiData.value.allUsers
+      })
 
 
-
-  if (response.status == 200) {
-
-    //console.log(response)
-
-    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal'));
-
-    modal.hide();
-
-    const succsessModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('successModal'));
-
-    succsessModal.show();
-
-
-
-
-    apiData.value = await (await axios.get("/projects/"+id)).data;
-
-    Object.assign(formData,{
-    projectName: apiData.value.projectName,
-    projectDescription: apiData.value.projectDescription,
-    allUsers: apiData.value.allUsers
-  })
-
-
-
-  }
-} catch (e) {
+    }
+  } catch (e) {
     console.log(e.message)
   }
 
