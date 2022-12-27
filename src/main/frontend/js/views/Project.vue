@@ -38,7 +38,7 @@
 
     <div class="card-footer">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit</button>
-      <button type="button" class="btn btn-danger ms-2" @click="deleteProject()" >Delete</button>
+      <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#deleteModal" >Delete</button>
     </div>
 
 
@@ -106,6 +106,26 @@
       </div>
     </div>
   </div>
+
+
+  <div class="modal" tabindex="-1" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Project</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="deleteProject()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -177,7 +197,6 @@ const deleteProject = async ()=>{
       router.push("/projects")
 
     }
-
  
   } catch (e) {
 
@@ -185,10 +204,6 @@ const deleteProject = async ()=>{
 
   }
   
-
-
-
-
 }
 
 const submit = async () => {
