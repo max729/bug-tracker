@@ -47,16 +47,42 @@
     </div>
   </div>
 
-
+  <!-- Comments -->
   <div class="card my-1 shadow" v-if="apiData">
     <div class="card-header">
-      <h5 class="card-title">Comments</h5>
-    </div>
-    <div class="card-body">
-      <div class="row border rounded my-2" v-for="com in apiData.ticketComments">
-        <div class="col-2">{{ com.userLink }}</div>
-        <div class="col-10">{{ com.comment }}</div>
+
+      <div class="row">
+        <h4 class="col-auto mb-0">Comments</h4>
+
+        <div class="col">
+          <div class="row justify-content-end mx-2">
+            <button class="btn btn-primary btn-sm col-auto " data-bs-toggle="modal" data-bs-target="#addCommentModal">
+              Add
+            </button>
+          </div>
+        </div>
       </div>
+
+    </div>
+
+    <div class="card-body">
+      <div class="card shadow-sm rounded my-2" v-for="com in apiData.ticketComments">
+        <div class="card-header">
+
+          <div class="row">
+            <div class="col-auto mb-0 fw-bold">{{ com.userLink }} </div>
+
+            <div v-if="com.userLink === store.state.user.id" class="col">
+              <div class="row justify-content-end mx-2">
+                <button @click="deleteComment(com.id)" type="button" class="btn-close" aria-label="Close"></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-body"> {{ com.comment }} </div>
+      </div>
+
     </div>
 
 
@@ -64,8 +90,7 @@
 
 
 
-  <div v-if="apiProjectData" class="modal fade" id="exampleModal" tabindex="-1"
-    aria-hidden="true">
+  <div v-if="apiProjectData" class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -105,27 +130,13 @@
                 </select>
               </div>
 
-<!--               <div class="col-12 my-3 col-sm-6">
-                Project : <br>
-                <select
-                  @input="formData.projektLink = $event.target.value[0]; activProjectIndex = $event.target.value[1]"
-                  class="form-select">
-                  <option v-for="(project, key) in apiProjectData" :value="[project.id, key]">{{ project.projectName }}
-                  </option>
-                </select>
-              </div>-->
-
-
-
               <div class="col-12 my-3 col-sm-6">
                 Assigned : <br>
                 <select v-model="formData.assigned" class="form-select">
                   <option :value="null"></option>
                   <option v-for="projectUser in apiProjectData.allUsers">{{ projectUser }}</option>
                 </select>
-              </div> 
-
-
+              </div>
 
               <div class="col-12 my-3">
                 Description : <br>
@@ -166,7 +177,33 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" @click="deleteTicket" class="btn btn-primary" data-bs-dismiss="modal" >Delete</button>
+          <button type="button" @click="deleteTicket" class="btn btn-primary" data-bs-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div v-if="apiData" class="modal fade" id="addCommentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Comment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12 my-3">
+                Comment Text : <br>
+                <textarea v-model="commentFormData.comment" class="form-control"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button @click="addComment()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
         </div>
       </div>
     </div>
@@ -178,7 +215,7 @@
 
 
 <script setup>
-import { computed, onMounted, ref,reactive } from 'vue';
+import { computed, onMounted, ref, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from "axios";
 import { useStore } from 'vuex';
@@ -187,11 +224,18 @@ import * as bootstrap from 'bootstrap';
 
 const store = useStore();
 
+
 let apiData = ref(null);
 let apiProjectData = ref(null);
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
+
+const commentFormData = reactive({
+  comment: "",
+  userLink: store.state.user.id,
+  ticket: id
+})
 
 const formData = reactive({
   name: "",
@@ -204,18 +248,18 @@ const formData = reactive({
 });
 
 
-const setEditFormData = (  data )=>{
+const setEditFormData = (data) => {
   return {
-      name: data.name,
-      status: data.status,
-      description: data.description,
-      priority: data.priority,
-      typ: data.typ,
-      assigned: data.assigned,
-      author: data.author,
-      projektLink: data.projektLink
-    }
-} 
+    name: data.name,
+    status: data.status,
+    description: data.description,
+    priority: data.priority,
+    typ: data.typ,
+    assigned: data.assigned,
+    author: data.author,
+    projektLink: data.projektLink
+  }
+}
 
 onMounted(async () => {
 
@@ -223,11 +267,11 @@ onMounted(async () => {
     const response = await axios.get("/tickets/" + id);
     apiData.value = response.data;
 
-    apiProjectData.value = (await axios.get("/projects/"+ apiData.value.projektLink )).data;
+    apiProjectData.value = (await axios.get("/projects/" + apiData.value.projektLink)).data;
 
-    
-    Object.assign(formData,setEditFormData(apiData.value));
-    
+
+    Object.assign(formData, setEditFormData(apiData.value));
+
 
   } catch (e) {
     console.log(e.message);
@@ -239,70 +283,117 @@ onMounted(async () => {
 
 
 
-const deleteTicket = async ()=>{
+const deleteTicket = async () => {
 
-try{
+  try {
 
-  const response = await axios.delete("/tickets/" + id );
+    const response = await axios.delete("/tickets/" + id);
 
-  if(response.status === 204){
+    if (response.status === 204) {
 
-    router.push("/tickets")
+      router.push("/tickets")
+
+    }
+
+  } catch (e) {
+
+    console.log(e.message);
 
   }
-
-} catch (e) {
-
-  console.log( e.message );
-
-}
 
 }
 
 const submit = async () => {
 
-try {
+  try {
 
-  console.log(formData)
-
-
-  if (formData.name === "" ) {
-    return;
-  }
-
-  const response = await axios.put("/tickets/" + id , formData,
-    {
-      'Content-Type': 'application/json',
-      withCredentials: true
+    if (formData.name === "") {
+      return;
     }
-  )
+
+    const response = await axios.put("/tickets/" + id, formData,
+      {
+        'Content-Type': 'application/json',
+        withCredentials: true
+      }
+    )
 
 
 
-  if (response.status == 200) {
+    if (response.status == 200) {
 
-    //console.log(response)
+      //console.log(response)
 
-    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal'));
+      const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal'));
 
-    modal.hide();
+      modal.hide();
 
-    const succsessModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('successModal'));
+      const succsessModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('successModal'));
 
-    succsessModal.show();
-
-
-
-
-    apiData.value = await (await axios.get("/tickets/"+id)).data;
-
-    //Object.assign(formData,setEditFormData(apiData.value)) 
+      succsessModal.show();
 
 
 
-  }
-} catch (e) {
+
+      apiData.value = await (await axios.get("/tickets/" + id)).data;
+
+      //Object.assign(formData,setEditFormData(apiData.value)) 
+
+
+
+    }
+  } catch (e) {
     console.log(e.message)
+  }
+
+}
+
+const addComment = async () => {
+
+  try {
+
+    if (commentFormData.comment === "" || commentFormData.userLink === "" || commentFormData.ticket === "") {
+      return;
+    }
+
+    const response = await axios.post("/comments", commentFormData,
+      {
+        'Content-Type': 'application/json',
+        withCredentials: true
+      }
+    )
+
+
+
+    if (response.status == 201) {
+
+      apiData.value = await (await axios.get("/tickets/" + id)).data;
+
+      commentFormData.comment = "";
+
+    }
+  } catch (e) {
+    console.log(e.message)
+  }
+
+}
+
+const deleteComment = async (comId) => {
+  try {
+
+    const response = await axios.delete("/comments/" + comId);
+
+    if (response.status == 204) {
+
+      apiData.value = await (await axios.get("/tickets/" + id)).data;
+
+
+    }
+
+  } catch (e) {
+
+    console.log(e.message);
+
   }
 
 }

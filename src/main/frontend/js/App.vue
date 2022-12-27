@@ -9,10 +9,6 @@
         <router-view></router-view>
       </div>
 
-
-
-
-
     </div>
   </div>
 
@@ -26,7 +22,7 @@
 import Nav from "./components/Nav.vue";
 import Sidebar from "./components/Sidebar.vue";
 import { useStore } from 'vuex';
-import { computed, onMounted, ref } from 'vue';
+import { computed, } from 'vue';
 
 const store = useStore();
 let auth = computed(() => store.state.auth);
