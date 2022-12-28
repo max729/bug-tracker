@@ -104,7 +104,8 @@ public class AppUserService {
         appUser.setLastName(appUserDTO.getLastName());
         appUser.setEmail(appUserDTO.getEmail());
         appUser.setUserRole(appUserDTO.getUserRole());
-        appUser.setPassword( passwordEncoder.encode(appUserDTO.getPassword()));
+        if( appUserDTO.getPassword() != null )
+            appUser.setPassword( passwordEncoder.encode(appUserDTO.getPassword()));
         return appUser;
     }
 

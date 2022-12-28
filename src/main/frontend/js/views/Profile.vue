@@ -22,7 +22,7 @@
         </div>
         <div class="col-12 my-3 col-sm-6">
           Lastname : <br>
-          {{  user.firstName}}
+          {{  user.lastName}}
         </div>
         <div class="col-12 my-3 col-sm-6">
           Email : <br>

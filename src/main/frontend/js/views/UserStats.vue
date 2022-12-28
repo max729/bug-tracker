@@ -4,8 +4,6 @@
       <h2>{{ "Hi " + user.id + ", you are logged in as: " + user.userRole }}</h2>
     </div>
 
-
-
     <div class="card-body">
 
       <div class="row">
@@ -97,7 +95,7 @@
                 </td>
                 <td class="align-middle text-center text-sm">
                   <span class="p-1 text-white bg-opacity-75 rounded-1"
-                    :class="{ 'bg-success': entry.priority == 'LOW', 'bg-warning': entry.priority == 'MID', 'bg-danger': entry.priority == 'HEIGH' }">
+                    :class="{ 'bg-success': entry.priority == 'LOW', 'bg-warning': entry.priority == 'MID', 'bg-danger': entry.priority == 'HIGH' }">
                     {{ entry.priority }}</span>
                 </td>
                 <td class="align-middle">
@@ -118,11 +116,6 @@
     </div>
 
   </div>
-
-
-
-
-
 
 </template>
 
