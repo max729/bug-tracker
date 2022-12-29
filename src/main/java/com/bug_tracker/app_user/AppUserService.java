@@ -65,8 +65,8 @@ public class AppUserService {
 
     public String create(final AppUserDTO appUserDTO) {
         
-        if( appUserDTO.getPassword() != "" || appUserDTO.getEmail() != "" || appUserDTO.getId() != ""   ) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        if( appUserDTO.getEmail().equals("")   ) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"mail empty");
         }
         // TODO custom throw if duplicate
 

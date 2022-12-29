@@ -14,12 +14,12 @@
     </div>
 
     <div class="form-floating">
-      <input v-model="data.first_name" type="text" class="form-control"  placeholder="firstname">
+      <input v-model="data.firstName" type="text" class="form-control"  placeholder="firstname">
       <label >Firstname</label>
     </div>
 
     <div class="form-floating">
-      <input v-model="data.last_name" type="text" class="form-control" placeholder="firstname">
+      <input v-model="data.lastName" type="text" class="form-control" placeholder="firstname">
       <label >Lastname</label>
     </div>
 

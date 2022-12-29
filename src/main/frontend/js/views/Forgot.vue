@@ -21,50 +21,43 @@
     </main>
 </template>
     
-<script>
+<script setup>
 import { reactive } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-export default {
-    name: "Forgot",
-    setup() {
-        const data = reactive({
-            email: ""
+
+const data = reactive({
+    email: ""
+});
+const notify = reactive({
+    cls: '',
+    message: ''
+});
+
+const router = useRouter();
+
+const submit = async () => {
+
+    try{
+        const response = await axios.post("/appUsers/forgot", data,
+        {
+            'Content-Type': 'application/json'
         });
-        const notify = reactive({
-            cls: '',
-            message: ''
-        });
 
-        const router = useRouter();
 
-        const submit = async () => {
-
-            const response = await axios.post("/appUsers/forgot", data,
-                {
-                    'Content-Type': 'application/json'
-                });
-
-            if (response.status === 200) {
-                notify.cls = "success"
-                notify.message = "Email was sent";
-            } else {
-                notify.cls = "danger"
-                notify.message = "Email not found";
-
-            }
-
+        if (response.status === 200) {
+            notify.cls = "success"
+            notify.message = "Email was sent";
         }
-
-        return {
-            data,
-            submit,
-            notify
-        }
+    } catch(e) {
+        notify.cls = "danger"
+        console.log(e.response)
+        notify.message = e.response.data.message;
     }
 
 }
+
 
 </script>
     
