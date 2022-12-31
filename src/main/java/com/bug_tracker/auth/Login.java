@@ -9,8 +9,8 @@ public class Login {
     @Getter
     private final Jwt refreshJwt;
 
-    private static final Long ACCESS_TOKEN_VALIDITY = 1L;
-    private static final Long REFRESH_TOKEN_VALIDITY = 2880L;
+    private static final Long ACCESS_TOKEN_VALIDITY = 5L;
+    private static final Long REFRESH_TOKEN_VALIDITY = 60 * 5L;
 
     private Login(Jwt accessJwt, Jwt refreshJwt) {
         this.accessJwt = accessJwt;

@@ -1,6 +1,10 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8080/api";
+
+let apiURL = window.location.href;
+apiURL = apiURL.substring(0, apiURL.indexOf("#") ) + "api" ;
+
+axios.defaults.baseURL =  apiURL;
 
 let refresh = false;
 

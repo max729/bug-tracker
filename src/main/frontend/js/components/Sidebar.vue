@@ -15,7 +15,7 @@
         </li>
         <li>
           <router-link to="/tickets" class="nav-link px-md-0 px-2">
-            <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-md-inline">Tickets</span> 
+            <i class="fs-5 bi-ticket"></i><span class="ms-1 d-none d-md-inline">Tickets</span> 
           </router-link>
         </li>
         <li>
@@ -25,7 +25,7 @@
         </li>
         <li>
           <router-link to="/appUsers" class="nav-link px-md-0 px-2">
-            <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-md-inline">App-Users</span>
+            <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-md-inline">App-Users</span>
           </router-link>
         </li>
       </ul>

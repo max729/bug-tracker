@@ -64,9 +64,10 @@ public class AppUserResource {
     public ResponseEntity<LoginResponse> loginAppUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
 
         var login = appUserService.login(loginRequest.email(),loginRequest.password());
+        int cookieExpire=60*60*4;
 
         Cookie cookie = new Cookie("refresh_token", login.getRefreshJwt().getToken());
-        cookie.setMaxAge(3600);
+        cookie.setMaxAge(cookieExpire);
         cookie.setHttpOnly(true);
         cookie.setPath("/api");
         cookie.setAttribute("SameSite", "Lax");
