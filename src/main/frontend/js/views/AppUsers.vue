@@ -6,12 +6,12 @@
       <div class="row">
         <h2 class="col-auto ">App User</h2>
 
-        <div class="col">
+<!--         <div class="col">
           <div class="row justify-content-end mx-2">
             <button class="btn btn-primary btn-sm col-auto ">Add </button>
           </div>
 
-        </div>
+        </div> -->
 
       </div>
       <form id="search">

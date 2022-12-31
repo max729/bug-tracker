@@ -64,7 +64,7 @@
 
 
   <!-- Modal -->
-  <div v-if="apiData && apiData.length > 0" class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+  <div v-if="apiAllUserNames.length > 0" class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
