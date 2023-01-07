@@ -29,7 +29,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        Logger logger = LoggerFactory.getLogger(AuthorizationInterceptor.class);
+        //Logger logger = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
         String authorizationHeader = request.getHeader("Authorization");
 
@@ -40,7 +40,6 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         request.setAttribute("appUser", appUser);
 
-        logger.info( "d" + request.getMethod() + "GET"  );
 
         if(  !request.getMethod().equals("GET")  && appUser.getUserRole() == UserRole.GUEST    ){
             throw new  ResponseStatusException(HttpStatus.FORBIDDEN,"GUEST can not modify");
