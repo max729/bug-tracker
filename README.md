@@ -1,36 +1,26 @@
 # BugTracker
 
-This app was created with Bootify.io - more documentation [can be found here](https://bootify.io/docs/). Feel free to contact us for further questions.
+This is a CRUD web application for tracking bugs, with a MySQL database for data storage and JWT for user authentication. In the application, bug tickets are organized into projects and can be easily created, viewed, edited, and deleted through the MVC Pattern.
 
-## Development
 
-During development it is recommended to use the profile `local`. In IntelliJ, `-Dspring.profiles.active=local` can be added in the VM options of the Run Configuration after enabling this property in "Modify options".
+Stack: Vue, Vite, Bootstrap, JWT, Java Sring Boot, MySQL 
 
-Update your local database connection in `application.yml` or create your own `application-local.yml` file to override settings for development.
 
-Lombok must be supported by your IDE. For this, in IntelliJ install the Lombok plugin and enable annotation processing - [learn more](https://bootify.io/intellij/spring-boot-with-lombok.html).
 
-In addition to the Spring Boot application, the DevServer must also be started. [Node.js](https://nodejs.org/) has to be available on the system - the latest LTS version is recommended. Only once the dependencies have to be installed:
 
-```
-npm install
-```
 
-The DevServer can now be started as follows:
-
-```
-npm run devserver
-```
-
-Using a proxy the whole application is now accessible under `localhost:8081`. All changes to the templates and JS/CSS files are immediately visible in the browser.
 
 ## Build
+
+Before build you have to add Mysql credentials in application.yml
 
 The application can be built using the following command:
 
 ```
 mvnw clean package
 ```
+
+
 
 Node.js is automatically downloaded using the `frontend-maven-plugin` and the final JS/CSS files are integrated into the jar.
 
@@ -40,12 +30,11 @@ The application can then be started with the following command - here with the p
 java -Dspring.profiles.active=production -jar ./target/bug-tracker-0.0.1-SNAPSHOT.jar
 ```
 
-## Further readings
+# Pictures
 
-* [Maven docs](https://maven.apache.org/guides/index.html)  
-* [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  
-* [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)  
-* [Thymeleaf docs](https://www.thymeleaf.org/documentation.html)  
-* [Webpack concepts](https://webpack.js.org/concepts/)  
-* [npm docs](https://docs.npmjs.com/)  
-* [Bootstrap docs](https://getbootstrap.com/docs/5.2/getting-started/introduction/)  
+![plot](./readmeImages/Tracker1.jpg)
+![plot](./readmeImages/Tracker2.jpg)
+![plot](./readmeImages/Tracker3.jpg)
+![plot](./readmeImages/Tracker4.jpg)
+![plot](./readmeImages/Tracker5.jpg)
+![plot](./readmeImages/Tracker6.jpg)
