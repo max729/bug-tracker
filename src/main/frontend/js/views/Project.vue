@@ -91,7 +91,7 @@
         </form>
         <div class="modal-footer">
           <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button @click="submit()" type="button" class="btn btn-primary">Save</button>
+          <button @click="submit()" type="button" class="btn btn-primary" :class="{ disabled: user.userRole== 'GUEST' }">Save</button>
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="deleteProject()">Delete</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="deleteProject()" :class="{ disabled: user.userRole== 'GUEST' }">Delete</button>
         </div>
       </div>
     </div>
@@ -143,6 +143,7 @@ import * as bootstrap from 'bootstrap';
 //import DemoGrid from './Grid.vue'
 
 const store = useStore();
+let user = computed(() => store.state.user);
 
 let apiData = ref(null);
 const route = useRoute();

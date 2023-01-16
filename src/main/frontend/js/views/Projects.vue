@@ -104,7 +104,7 @@
         </form>
         <div class="modal-footer">
           <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button @click="submit()" type="button" class="btn btn-primary">Save</button>
+          <button @click="submit()" type="button" class="btn btn-primary" :class="{ disabled: user.userRole== 'GUEST' }">Save</button>
         </div>
       </div>
     </div>
@@ -137,6 +137,8 @@ import * as bootstrap from 'bootstrap';
 const store = useStore();
 let auth = computed(() => store.state.auth);
 let user = computed(() => store.state.user);
+
+
 
 let apiData = ref(null);
 let apiAllUserNames = ref([]);
