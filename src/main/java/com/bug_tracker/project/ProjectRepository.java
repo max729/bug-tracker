@@ -13,7 +13,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 
     @Query("""
-        SELECT p FROM Project p JOIN FETCH p.allUserAppUsers u WHERE :appUserId = u.id
+        SELECT DISTINCT p FROM Project p JOIN FETCH p.allUserAppUsers u WHERE :appUserId = u.id
         """)
     List<Project> findByAppUserId(String appUserId);
 
