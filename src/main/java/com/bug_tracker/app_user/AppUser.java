@@ -11,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+
 import java.time.OffsetDateTime;
 import java.util.Set;
 import lombok.Getter;
@@ -43,6 +45,7 @@ public class AppUser {
     private String password;
 
     @Column(nullable = false, unique = true)
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
     private String email;
 
     @Column(nullable = false)

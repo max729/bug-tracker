@@ -68,7 +68,14 @@ public class AppUserService {
         if( appUserDTO.getEmail().equals("")   ) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"mail empty");
         }
-        // TODO custom throw if duplicate
+        
+        if( appUserDTO.getId().equals("")  ) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"Username empty");
+        }
+
+        if( appUserDTO.getPassword().equals("")  ) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"password empty");
+        }
 
         final AppUser appUser = new AppUser();
         mapToEntity(appUserDTO, appUser);

@@ -262,7 +262,7 @@ onMounted(async () => {
     const [ticketResponse , projectResponse] = await Promise.all( [ axios.get("/tickets") , axios.get("/projects/fromToken")  ] );
 
     apiTicketData.value = ticketResponse.data;
-    //const ticketResponse = ticketResponse.data;
+
     apiProjectData.value = projectResponse.data;
 
     formData.projektLink = apiProjectData.value.length > 0 ? apiProjectData.value[0].id : null;
