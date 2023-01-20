@@ -202,11 +202,15 @@ const submit = async () => {
 onMounted(async () => {
 
   try {
-    const response = await axios.get("/projects");
 
-    apiData.value = response.data;
+    const [projectResponse, appUsersPresponse] = await Promise.all( [ axios.get("/projects"), await axios.get("/appUsers")  ] );
 
-    const userdata = await (await axios.get("/appUsers")).data;
+
+    
+    apiData.value = projectResponse.data;
+    
+
+    const userdata =   appUsersPresponse.data;
 
     userdata.forEach(ele => apiAllUserNames.value.push(ele.id));
 
