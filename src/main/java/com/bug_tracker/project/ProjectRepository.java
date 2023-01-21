@@ -10,10 +10,10 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     boolean existsByProjectNameIgnoreCase(String projectName);
 
-
+//SELECT DISTINCT p FROM Project p JOIN FETCH p.allUserAppUsers u WHERE u.id = :appUserId
 
     @Query("""
-        SELECT DISTINCT p FROM Project p JOIN FETCH p.allUserAppUsers u WHERE :appUserId = u.id
+        SELECT u.allUserProjects FROM AppUser u Where u.id = :appUserId
         """)
     List<Project> findByAppUserId(String appUserId);
 

@@ -323,6 +323,7 @@ let changeProjektIndex  = computed({
       set(newValue) {
 
         formData.projektLink = newValue[0];
+        formData.assigned = null;
         activProjectIndex.value = newValue[1];
 
       }
