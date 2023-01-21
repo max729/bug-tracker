@@ -136,20 +136,18 @@
               <div class="col-12 my-3 col-sm-6">
                 Project : <br>
                 <select
-                  @input="formData.projektLink = $event.target.value[0]; activProjectIndex = $event.target.value[1]"
+                  v-model="changeProjektIndex"
                   class="form-select">
-                  <option v-for="(project, key) in apiProjectData" :value="[project.id, key]">{{ project.projectName }}
-                  </option>
+                  <option v-for="(project, key) in apiProjectData" :value="[ project.id , key]">
+                    {{ project.projectName }}</option>
                 </select>
               </div>
-
-
 
               <div class="col-12 my-3 col-sm-6">
                 Assigned : <br>
                 <select v-model="formData.assigned" class="form-select">
                   <option :value="null"></option>
-                  <option v-for="projectUser in apiProjectData[activProjectIndex].allUsers">{{ projectUser }}</option>
+                  <option v-for="projectUser in apiProjectData[activProjectIndex].allUsers">{{ projectUser }}</option> 
                 </select>
               </div>
 
@@ -210,7 +208,7 @@ const formData = reactive({
   description: "",
   priority: "LOW",
   typ: "BUG",
-  projektLink: -1,
+  projektLink: 0,
   assigned: null,
   author: store.state.user.id,
 
@@ -318,7 +316,18 @@ function sortBy(key) {
   sortOrders.value[key] *= -1
 }
 
+let changeProjektIndex  = computed({
+  get() {
+        return [formData.projektLink ,  activProjectIndex.value ];
+      },
+      set(newValue) {
 
+        formData.projektLink = newValue[0];
+        activProjectIndex.value = newValue[1];
+
+      }
+}
+);
 
 </script>
     
