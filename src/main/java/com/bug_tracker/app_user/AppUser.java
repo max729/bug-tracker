@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.OffsetDateTime;
 import java.util.Set;
@@ -33,6 +34,7 @@ public class AppUser {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(nullable = false, updatable = false, length = 24)
+    @NotBlank
     private String id;
 
     @Column(nullable = false)
@@ -42,6 +44,7 @@ public class AppUser {
     private String lastName;
 
     @Column(nullable = false)
+    @NotBlank
     private String password;
 
     @Column(nullable = false, unique = true)

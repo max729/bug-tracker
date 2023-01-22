@@ -71,10 +71,6 @@ public class ProjectService {
         projectDTO.setAllUsers(project.getAllUserAppUsers() == null ? null : project.getAllUserAppUsers().stream()
                 .map(appUser -> appUser.getId())
                 .collect(Collectors.toList()));
-        /*projektDTO.setAllUsersNames(projekt.getAllUserAppUsers() == null ? null : projekt.getAllUserAppUsers().stream()
-                .map(appUser -> appUser.getFirstName())
-                .collect(Collectors.toList()));
-        */
         return projectDTO;
     }
 

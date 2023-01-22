@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.OffsetDateTime;
 import java.util.Set;
 import lombok.Getter;
@@ -34,6 +36,7 @@ public class Project {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank
     private String projectName;
 
     @Column(nullable = false)

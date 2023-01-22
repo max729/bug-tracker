@@ -65,15 +65,13 @@ public class AppUserService {
 
     public String create(final AppUserDTO appUserDTO) {
         
-        if( appUserDTO.getEmail().equals("")   ) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"mail empty");
-        }
-        
-        if( appUserDTO.getId().equals("")  ) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"Username empty");
+
+        if(  !appUserDTO.getId().matches("^\\s*$")  ){
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"Username: No space allowed");
         }
 
-        if( appUserDTO.getPassword().equals("")  ) {
+
+        if( appUserDTO.getPassword().equals("") ||  !appUserDTO.getPassword().matches("^\\s*$")  ) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"password empty");
         }
 
