@@ -11,6 +11,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.bug_tracker.app_user.dtos.AppUserDTO;
+import com.bug_tracker.app_user.dtos.AppUserStatsDTO;
+import com.bug_tracker.app_user.dtos.LoginRequestDTO;
+
 
 @RestController
 @RequestMapping(value = "/api/appUsers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,11 +61,11 @@ public class AppUserResource {
         return new ResponseEntity<>(appUserService.create(appUserDTO), HttpStatus.CREATED);
     }
 
-    record LoginRequest(String email, String password) {}
-    record LoginResponse(String token) {}
+    
+    record LoginResponseDTO(String token) {}
     @PostMapping("/login")
     @ApiResponse(responseCode = "200")
-    public ResponseEntity<LoginResponse> loginAppUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    public ResponseEntity<LoginResponseDTO> loginAppUser(@RequestBody LoginRequestDTO loginRequest, HttpServletResponse response) {
 
         var login = appUserService.login(loginRequest.email(),loginRequest.password());
         int cookieExpire=60*60*4;
@@ -73,15 +77,15 @@ public class AppUserResource {
         cookie.setAttribute("SameSite", "Lax");
         response.addCookie(cookie);
 
-        return ResponseEntity.ok(new LoginResponse(login.getAccessJwt().getToken()));
+        return ResponseEntity.ok(new LoginResponseDTO(login.getAccessJwt().getToken()));
     }
 
     @PostMapping("/refresh")
     @ApiResponse(responseCode = "200")
-    public ResponseEntity<LoginResponse> loginAppUser(@CookieValue("refresh_token") String refreshToken) {
+    public ResponseEntity<LoginResponseDTO> loginAppUser(@CookieValue("refresh_token") String refreshToken) {
         var login = appUserService.refreshAccess(refreshToken);
 
-        return ResponseEntity.ok(new LoginResponse(login.getAccessJwt().getToken()));
+        return ResponseEntity.ok(new LoginResponseDTO(login.getAccessJwt().getToken()));
     }
 
     @PostMapping("/logout")

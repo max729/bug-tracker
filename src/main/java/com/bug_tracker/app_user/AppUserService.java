@@ -1,5 +1,7 @@
 package com.bug_tracker.app_user;
 
+import com.bug_tracker.app_user.dtos.AppUserDTO;
+import com.bug_tracker.app_user.dtos.AppUserStatsDTO;
 import com.bug_tracker.auth.Jwt;
 import com.bug_tracker.auth.Login;
 import com.bug_tracker.email.MailServices;
