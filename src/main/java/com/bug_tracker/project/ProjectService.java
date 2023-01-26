@@ -5,7 +5,6 @@ import com.bug_tracker.app_user.AppUserRepository;
 import jakarta.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -80,7 +79,7 @@ public class ProjectService {
         final List<AppUser> allUsers = appUserRepository.findAllById(
                 projectDTO.getAllUsers() == null ? Collections.emptyList() : projectDTO.getAllUsers());
         if (allUsers.size() != (projectDTO.getAllUsers() == null ? 0 : projectDTO.getAllUsers().size())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "one of allUsers not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Project Users not found");
         }
         project.setAllUserAppUsers(allUsers.stream().collect(Collectors.toSet()));
         return project;
