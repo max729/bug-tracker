@@ -1,13 +1,15 @@
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/bugtracker?serverTimezone=UTC}
-    username: ${JDBC_DATABASE_USERNAME:root}
-    password: ${JDBC_DATABASE_PASSWORD:Root+1234}
+    url: ${JDBC_DATABASE_URL:jdbc:h2:file:./data/demo}
+    username: ${JDBC_DATABASE_USERNAME:sql111}
+    password: ${JDBC_DATABASE_PASSWORD:12345}
+    driverClassName: org.h2.Driver
     dbcp2:
       max-wait-millis: 30000
       validation-query: SELECT 1
       validation-query-timeout: 30
   jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:
       ddl-auto: update
@@ -29,8 +31,8 @@ springdoc:
 
 application:
   security:
-    access-token-secret: cfbcfbcfbcfbcbfcbcfbcfgzdsdvsdsdfdfhdf
-    refresh-token-secret: sdgsdgsdgdsgdbvxcbcdfhbdhbnfdcfrhbdcfb
-    forgot-token-secret: adawdafgsgbddthtthfthfthfdthfthfthfjnv
+    access-token-secret: adadawdawdaadawrar
+    refresh-token-secret: awdawrawrawradwda
+    forgot-token-secret: awrarwafafarfwafrawr
   frontend:
-    default-url: http://localhost:4200
+    default-url: http://localhost:8081
