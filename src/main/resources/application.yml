@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: ${JDBC_DATABASE_URL:jdbc:h2:file:./data/demo}
-    username: ${JDBC_DATABASE_USERNAME:sql111}
-    password: ${JDBC_DATABASE_PASSWORD:12345}
+    username: ${JDBC_DATABASE_USERNAME:sql7587247}
+    password: ${JDBC_DATABASE_PASSWORD:Z3jEdH8UiK}
     driverClassName: org.h2.Driver
     dbcp2:
       max-wait-millis: 30000
@@ -31,8 +31,8 @@ springdoc:
 
 application:
   security:
-    access-token-secret: adadawdawdaadawrar
-    refresh-token-secret: awdawrawrawradwda
-    forgot-token-secret: awrarwafafarfwafrawr
+    access-token-secret: adadawdawdaadawrarhfthfthfhfhffthffth
+    refresh-token-secret: awdawrawrawradwdafthfhfthfthfthfhfth
+    forgot-token-secret: awrarwafafarfwafrawrfhfthfhfhfhffhfh
   frontend:
     default-url: http://localhost:8081
