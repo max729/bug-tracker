@@ -67,13 +67,11 @@ public class AppUserService {
 
     public String create(final AppUserDTO appUserDTO) {
         
-
-        if(  !appUserDTO.getId().matches("^\\s*$")  ){
+        if(  appUserDTO.getId().contains(" ")  ){
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"Username: No space allowed");
         }
 
-
-        if( appUserDTO.getPassword().equals("") ||  !appUserDTO.getPassword().matches("^\\s*$")  ) {
+        if( appUserDTO.getPassword().equals("") ||  appUserDTO.getPassword().contains(" ")  ) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY,"password empty");
         }
 
