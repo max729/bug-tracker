@@ -55,10 +55,23 @@
 import axios from 'axios';
 import {  computed } from 'vue';
 import { useStore } from 'vuex';
+import { createAvatar } from '@dicebear/core';
+import { initials } from '@dicebear/collection';
+
 
 const store = useStore();    
 let auth = computed(()=> store.state.auth );
 let user = computed(() => store.state.user);
+
+const getUserImg =  () => {
+  let avatar =  createAvatar(initials, {
+  seed: store.state.user.id,
+  radius: 50,
+  });
+  const dataUri = avatar.toDataUriSync(); 
+  return dataUri;
+}
+
 
 const logout = async () => {
       axios.post('/appUsers/logout',{},{withCredentials:true});
