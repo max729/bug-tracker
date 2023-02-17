@@ -32,7 +32,7 @@
       <div class="dropdown py-md-4 mt-md-auto ms-auto ms-md-0 flex-shrink-1">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="../../assets/vite.svg"  width="28" height="28" class="rounded-circle">
+          <img :src="getUserImg()"  width="28" height="28" class="rounded-circle">
           <span class="d-none d-md-inline mx-1">{{user.id}}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -67,6 +67,7 @@ const getUserImg =  () => {
   let avatar =  createAvatar(initials, {
   seed: store.state.user.id,
   radius: 50,
+  scale: 75,
   });
   const dataUri = avatar.toDataUriSync(); 
   return dataUri;
